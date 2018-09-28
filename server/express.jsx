@@ -11,6 +11,7 @@ import apolloClient from '../src/apollo_client';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import cookieSession from 'cookie-session';
 import { create } from 'jss';
 import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
 import express from 'express';
@@ -22,7 +23,6 @@ import jssPreset from 'jss-preset-default';
 import morgan from 'morgan';
 import muiTheme from '../src/theme';
 import path from 'path';
-import session from 'express-session';
 import stats from '../www/scripts/react-loadable.json';
 
 // Redirect Webserver
@@ -44,7 +44,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // ! Important: Change secret when creating new project!
-app.use(session({
+app.use(cookieSession({
   secret: '98414c22d7e2cf27b3317ca7e19df38e9eb221bd',
   resave: true,
   saveUninitialized: false

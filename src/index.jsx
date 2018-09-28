@@ -48,7 +48,6 @@ window.addEventListener('load', async () => {
 
   if (module.hot) {
     module.hot.accept('./components/App.jsx', () => {
-      console.log('sajt');
       hydrate(
         <AppContainer>
           {app}

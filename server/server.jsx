@@ -56,5 +56,5 @@ async function startServer() {
     }
   }
 
-  console.log(`\nServer is started on port ${port}`);
+  console.log(`Server is started on port ${port}`);
 }

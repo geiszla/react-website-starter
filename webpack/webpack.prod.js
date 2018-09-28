@@ -7,7 +7,10 @@ const { productionServerUrl } = require('./config.js');
 const serverConfig = merge(
   commonServerConfig(productionServerUrl, productionServerUrl),
   {
-    mode: 'production'
+    mode: 'production',
+    optimization: {
+      minimize: false
+    }
   }
 );
 
@@ -38,8 +41,5 @@ const clientConfig = merge(
     }
   }
 );
-
-console.log(serverConfig.plugins);
-console.log(clientConfig.plugins);
 
 module.exports = [serverConfig, clientConfig];

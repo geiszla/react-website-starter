@@ -25,7 +25,7 @@ module.exports = merge(
       stats: { modules: false }
     },
     output: {
-      publicPath: `${hotServerUrl}/scripts`,
+      publicPath: `${hotServerUrl}/scripts/`,
       hotUpdateChunkFilename: 'hot/[hash].hot-update.js',
       hotUpdateMainFilename: 'hot/[hash].hot-update.json'
     },

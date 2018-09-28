@@ -63,8 +63,7 @@ const commonClientConfig = (serverUrl, scriptsUrl) => ({
     }),
     new ReactLoadablePlugin({
       filename: 'www/scripts/react-loadable.json'
-    }),
-    new CleanWebpackPlugin(['www/scripts'], cleanOptions)
+    })
   ],
   module: jsxRules,
   stats: { modules: false }
