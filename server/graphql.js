@@ -37,7 +37,7 @@ const mutationType = new GraphQLObjectType({
 
         bcrypt.compare(password, correctPassword, (err, res) => {
           if (err) {
-            console.error('Couldn\'t compare password hases.');
+            console.error('Couldn\'t compare password hashes.');
             resolve(false);
           }
 

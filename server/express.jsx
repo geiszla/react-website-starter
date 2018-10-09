@@ -45,14 +45,13 @@ app.use(cookieParser());
 
 // ! Important: Change secret when creating new project!
 app.use(cookieSession({
-  secret: '98414c22d7e2cf27b3317ca7e19df38e9eb221bd',
-  resave: true,
-  saveUninitialized: false
+  name: process.env.NODE_ENV === 'production' ? 'session' : 'devSession',
+  secret: '98414c22d7e2cf27b3317ca7e19df38e9eb221bd'
 }));
 
 // Webserver entry point
 app.get('*', async (req, res) => {
-  console.log();
+  console.log('\n----------------PAGE LOAD----------------');
 
   // Set up Apollo client
   const headers = Object.assign({}, req.headers, { accept: 'application/json' });
@@ -139,7 +138,7 @@ app.use(
     schema: graphQLSchema,
     rootValue: { session: req.session },
     graphiql: true
-  })),
+  }))
 );
 
 export { app, httpRedirectApp };

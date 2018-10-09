@@ -2,7 +2,7 @@
   "name": "react-website-starter",
   "version": "0.0.1",
   "main": "server.bundle.js",
-  "browserslist": "> 0.25%",
+  "browserslist": "ie 11, edge >= 14, firefox >= 52, chrome >= 49, safari >= 10",
   "scripts": {
     "heroku-postbuild": "yarn build",
     "start": "node --trace-warnings dist/server.bundle.js",
