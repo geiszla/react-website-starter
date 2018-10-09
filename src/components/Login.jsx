@@ -1,12 +1,12 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import Transition from 'react-transition-group/Transition';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-import Transition from 'react-transition-group/Transition';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 

@@ -1,29 +1,31 @@
-import { ApolloProvider, renderToStringWithData } from 'react-apollo';
-import { JssProvider, SheetsRegistry } from 'react-jss';
+import path from 'path';
 
-import App from '../src/components/App.jsx';
-import { InMemoryCache } from '../node_modules/apollo-cache-inmemory/lib/inMemoryCache';
-import Loadable from 'react-loadable';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import React from 'react';
-import { StaticRouter } from 'react-router-dom';
-import apolloClient from '../src/apollo_client';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
-import { create } from 'jss';
-import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
 import express from 'express';
-import favicon from 'serve-favicon';
-import { getBundles } from 'react-loadable/webpack';
-import graphQLSchema from './graphql';
 import graphqlHTTP from 'express-graphql';
+import { create } from 'jss';
 import jssPreset from 'jss-preset-default';
 import morgan from 'morgan';
+import React from 'react';
+import { ApolloProvider, renderToStringWithData } from 'react-apollo';
+import { JssProvider, SheetsRegistry } from 'react-jss';
+import Loadable from 'react-loadable';
+import { getBundles } from 'react-loadable/webpack';
+import { StaticRouter } from 'react-router-dom';
+import favicon from 'serve-favicon';
+
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
+
+import { InMemoryCache } from '../node_modules/apollo-cache-inmemory/lib/inMemoryCache';
+import apolloClient from '../src/apollo_client';
+import App from '../src/components/App.jsx';
 import muiTheme from '../src/theme';
-import path from 'path';
 import stats from '../www/scripts/react-loadable.json';
+import graphQLSchema from './graphql';
 
 // Redirect Webserver
 const httpRedirectApp = express();
@@ -51,7 +53,7 @@ app.use(cookieSession({
 
 // Webserver entry point
 app.get('*', async (req, res) => {
-  console.log('\n----------------PAGE LOAD----------------');
+  console.log(`\n------------------[ PAGE LOAD: ${req.url} ]------------------`);
 
   // Set up Apollo client
   const headers = Object.assign({}, req.headers, { accept: 'application/json' });
@@ -84,6 +86,7 @@ app.get('*', async (req, res) => {
 
   if (context.url) {
     // Handle React Router redirect
+    console.log(`REDIRECT: ${context.url}`);
     res.writeHead(301, { Location: context.url });
     res.send();
   } else {
@@ -99,8 +102,6 @@ async function renderPage(reactApp, client, sheetsRegistry, modules) {
   const uniqueModules = modules.filter((value, index, self) => self.indexOf(value) === index
     && !value.includes('hot-update'));
   const bundles = getBundles(stats, uniqueModules);
-
-  console.log(modules);
 
   // Insert app content and stying into HTML
   return `

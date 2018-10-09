@@ -1,10 +1,10 @@
+import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import Transition from 'react-transition-group/Transition';
 
 import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
-import Transition from 'react-transition-group/Transition';
 import Typography from '@material-ui/core/Typography';
-import { observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({

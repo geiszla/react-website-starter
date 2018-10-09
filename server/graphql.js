@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt-nodejs';
 import {
   GraphQLBoolean,
   GraphQLNonNull,
@@ -5,8 +6,6 @@ import {
   GraphQLSchema,
   GraphQLString
 } from 'graphql';
-
-import bcrypt from 'bcrypt-nodejs';
 
 // Queries
 const queryType = new GraphQLObjectType({

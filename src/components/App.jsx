@@ -1,32 +1,33 @@
 /* eslint react/no-unused-state: 0 */
 
-import { Home, Login } from './routes.jsx';
+import gql from 'graphql-tag';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
+import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
+import { compose, graphql } from 'react-apollo';
+import { hot } from 'react-hot-loader';
 import {
   Redirect,
   Route,
   Switch,
   withRouter
 } from 'react-router-dom';
-import { compose, graphql } from 'react-apollo';
 
-import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
-import { hot } from 'react-hot-loader';
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
 import { withStyles } from '@material-ui/core/styles';
+
+import { Home, Login } from './routes.jsx';
 
 const styles = () => ({
   background: {
     backgroundPosition: '35%',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    position: 'fixed',
-    height: '100%',
-    width: '100%',
     filter: 'blur(10px)',
-    transition: 'opacity 500ms ease-in-out'
+    height: '100%',
+    position: 'fixed',
+    transition: 'opacity 500ms ease-in-out',
+    width: '100%'
   }
 });
 
@@ -74,18 +75,18 @@ class App extends Component {
   }
 
   render() {
-    const { usernameError, passwordError } = this;
+    const { passwordError, usernameError } = this;
     const { pathname } = this.props.location;
     const username = this.props.data.getUsername;
 
     const isLoggedIn = username !== null;
 
     if (!isLoggedIn && pathname !== '/login') {
-      return <Redirect to="/login" push />;
+      return <Redirect push to="/login" />;
     }
 
     if (isLoggedIn === true && pathname === '/login') {
-      return <Redirect to="/" push />;
+      return <Redirect push to="/" />;
     }
 
     return (

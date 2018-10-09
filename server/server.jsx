@@ -1,11 +1,12 @@
-import { app, httpRedirectApp } from './express.jsx';
-
-import Loadable from 'react-loadable';
-import fetch from 'node-fetch';
 import fs from 'fs';
 import http from 'http';
 import path from 'path';
+
+import fetch from 'node-fetch';
+import Loadable from 'react-loadable';
 import spdy from 'spdy';
+
+import { app, httpRedirectApp } from './express.jsx';
 
 global.fetch = fetch;
 
