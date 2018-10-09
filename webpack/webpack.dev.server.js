@@ -1,5 +1,4 @@
 const merge = require('webpack-merge');
-const TimeFixPlugin = require('time-fix-plugin');
 const webpack = require('webpack');
 
 const { commonServerConfig } = require('./webpack.common.js');
@@ -16,8 +15,7 @@ module.exports = merge(
       hotUpdateMainFilename: './hot_server/[hash].hot-update.json'
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new TimeFixPlugin()
+      new webpack.HotModuleReplacementPlugin()
     ]
   }
 );
