@@ -27,8 +27,9 @@ const styles = () => ({
   },
   content: {
     position: 'relative',
-    top: '30%',
+    top: '35%',
     margin: '0 10%',
+    transform: 'translateY(-30%)',
     textAlign: 'center'
   },
   status: {

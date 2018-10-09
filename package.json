@@ -4,13 +4,12 @@
   "main": "server.bundle.js",
   "browserslist": "ie 11, edge >= 14, firefox >= 52, chrome >= 49, safari >= 10",
   "scripts": {
-    "heroku-postbuild": "yarn build",
-    "start": "node --trace-warnings dist/server.bundle.js",
-    "prod": "npm start --production",
     "build": "webpack --config webpack/webpack.prod.js",
+    "start": "node dist/server.bundle.js",
+    "dev": "npm-run-all --parallel dev:server dev:client",
     "dev:server": "webpack --config webpack/webpack.dev.server.js",
     "dev:client": "webpack-dev-server --config webpack/webpack.dev.client.js",
-    "dev": "npm-run-all --parallel dev:server dev:client",
+    "prod": "npm start --production",
     "lint": "node_modules/.bin/eslint . --ext .js --ext .jsx"
   },
   "license": "MIT",
