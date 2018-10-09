@@ -19,7 +19,7 @@ const styles = () => ({
     position: 'relative',
     top: '35%',
     margin: 'auto',
-    transform: 'translateY(-30%)',
+    transform: 'translateY(-25%)',
     maxWidth: 375,
     transition: 'opacity 500ms ease-in-out'
   },

@@ -29,7 +29,7 @@ const styles = () => ({
     position: 'relative',
     top: '35%',
     margin: '0 10%',
-    transform: 'translateY(-30%)',
+    transform: 'translateY(-25%)',
     textAlign: 'center'
   },
   status: {
