@@ -88,5 +88,5 @@ typings/
 
 # Node.js
 *bundle.js
-www/scripts/*
+www/scripts/
 dist/
