@@ -1,7 +1,7 @@
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { SchemaLink } from 'apollo-link-schema';
-import { configure } from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { printSchema } from 'graphql';
 import { makeExecutableSchema } from 'graphql-tools';
@@ -12,19 +12,8 @@ import renderer from 'react-test-renderer';
 
 import schema from '../../server/graphql';
 import App from '../components/App.jsx';
-
-// Helper functions
-function testRoute(path) {
-  const tree = renderer.create(
-    <ApolloProvider client={apolloClient}>
-      <MemoryRouter initialEntries={[path]}>
-        <App />
-      </MemoryRouter>
-    </ApolloProvider>
-  ).toJSON();
-
-  expect(tree).toMatchSnapshot();
-}
+import { watchFile } from 'fs';
+import wait from 'waait';
 
 // Setup
 const executableSchema = makeExecutableSchema({
@@ -40,8 +29,33 @@ const apolloClient = new ApolloClient({
 });
 
 configure({ adapter: new Adapter() });
-it('renders the loading component when different routes are requested', () => {
-  console.error = undefined;
-  testRoute('/login');
-  testRoute('/');
+
+const mockApp = path => (
+  <ApolloProvider client={apolloClient}>
+    <MemoryRouter initialEntries={[path]}>
+      <App />
+    </MemoryRouter>
+  </ApolloProvider>
+);
+
+// Helper functions
+async function createSnapshot(path) {
+  return renderer.create(mockApp(path)).toJSON();
+}
+
+createSnapshot('/');
+
+// Tests
+test('renders the loading component when different routes are requested', async () => {
+  const loginTree = createSnapshot('/');
+  expect(loginTree).toMatchSnapshot();
+
+  const homeTree = createSnapshot('/');
+  expect(homeTree).toMatchSnapshot();
+});
+
+test('logout mutation is called when the logout button is pressed', async () => {
+  const wrapper = mount(mockApp('/'));
+  wrapper.find('App').instance().handleLogout();
+  console.log(wrapper.debug());
 });

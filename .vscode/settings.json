@@ -1,4 +1,6 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "sort-imports.default-sort-style": "module-scoped"
+    "sort-imports.default-sort-style": "module-scoped",
+    "jest.pathToJest": "yarn test",
+    "jest.showCoverageOnLoad": true
 }

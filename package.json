@@ -2,6 +2,7 @@
   "name": "react-website-starter",
   "version": "0.0.1",
   "main": "server.bundle.js",
+  "license": "MIT",
   "browserslist": "ie 11, edge >= 14, firefox >= 52, chrome >= 49, safari >= 10",
   "scripts": {
     "build": "webpack --config webpack/webpack.prod.js",
@@ -11,9 +12,15 @@
     "dev:client": "webpack-dev-server --config webpack/webpack.dev.client.js",
     "prod": "npm start --production",
     "test": "jest",
+    "coverage": "jest --coverage",
     "lint": "node_modules/.bin/eslint . --ext .js --ext .jsx"
   },
-  "license": "MIT",
+  "jest": {
+    "verbose": false,
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ]
+  },
   "dependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
@@ -86,6 +93,7 @@
     "jest": "^23.6.0",
     "npm-run-all": "^4.1.3",
     "react-test-renderer": "^16.5.2",
+    "waait": "^1.0.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
   }
