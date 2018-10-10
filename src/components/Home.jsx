@@ -71,7 +71,7 @@ class Home extends Component {
                 {'!'}
               </Typography>
               <Button
-                variant="raised"
+                variant="contained"
                 className={classes.button}
                 onClick={() => handleLogout()}
               >

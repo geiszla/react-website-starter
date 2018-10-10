@@ -78,7 +78,7 @@ class Login extends Component {
               </CardContent>
               <CardActions>
                 <Button
-                  variant="raised"
+                  variant="contained"
                   color="primary"
                   className={classes.button}
                   onClick={() => handleLogin()}
