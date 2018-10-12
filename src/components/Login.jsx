@@ -13,15 +13,15 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = () => ({
   cardContainer: {
     height: '100%',
-    opacity: 0
+    opacity: 0,
+    transition: 'opacity 500ms ease-in-out'
   },
   card: {
     position: 'relative',
     top: '35%',
     margin: 'auto',
-    transform: 'translateY(-25%)',
-    maxWidth: 375,
-    transition: 'opacity 500ms ease-in-out'
+    transform: 'translateY(-30%)',
+    maxWidth: 382
   },
   title: {
     fontSize: '20px',

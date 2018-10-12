@@ -6,6 +6,9 @@ export default (function createTheme() {
     palette: {
       primary: indigo,
       accent: white
+    },
+    typography: {
+      useNextVariants: true
     }
   });
 }());
