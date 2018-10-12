@@ -41,22 +41,22 @@ const mockApp = path => (
 );
 
 // Helper functions
-async function mountApp(path) {
+function mountApp(path) {
   return mount(mockApp(path));
 }
 
 mountApp('/');
 
 // Tests
-test('React Router redirection', async () => {
-  const loginTree = await mountApp('/login');
+test('React Router redirection', () => {
+  const loginTree = mountApp('/login');
   expect(loginTree.find('Login').length).toBeGreaterThan(0);
 
-  const homeTree = await mountApp('/');
+  const homeTree = mountApp('/');
   expect(homeTree.find('Login').length).toBeGreaterThan(0);
 });
 
-test('Logout mutation is called when the logout button is pressed', async () => {
+test('Logout mutation is called when the logout button is pressed', () => {
   const wrapper = mount(mockApp('/'));
   wrapper.find('App').instance().handleLogout();
   // console.log(wrapper.debug());

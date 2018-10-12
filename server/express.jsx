@@ -21,7 +21,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
 
 import { InMemoryCache } from '../node_modules/apollo-cache-inmemory/lib/inMemoryCache';
-import apolloClient from '../src/apollo_client';
+import createApolloClient from '../src/apollo_client';
 import App from '../src/components/App.jsx';
 import muiTheme from '../src/theme';
 import stats from '../www/scripts/react-loadable.json';
@@ -57,7 +57,7 @@ app.get('*', async (req, res) => {
 
   // Set up Apollo client
   const headers = Object.assign({}, req.headers, { accept: 'application/json' });
-  const client = apolloClient(true, headers, new InMemoryCache());
+  const client = createApolloClient(true, headers, new InMemoryCache());
 
   // Set up MaterialUI theme provider
   const sheetsRegistry = new SheetsRegistry();

@@ -13,6 +13,11 @@
     "test": "jest",
     "lint": "node_modules/.bin/eslint . --ext .js --ext .jsx"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ]
+  },
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.1.2",

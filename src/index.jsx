@@ -13,7 +13,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import apolloClient from './apollo_client';
+import createApolloClient from './apollo_client';
 import App from './components/App.jsx';
 import theme from './theme';
 
@@ -27,7 +27,7 @@ console.log = (...args) => {
 
 window.addEventListener('load', async () => {
   const inMemoryCache = new InMemoryCache().restore(window.__APOLLO_STATE__ || {});
-  const client = apolloClient(false, undefined, inMemoryCache);
+  const client = createApolloClient(false, undefined, inMemoryCache);
 
   await preloadReady();
 

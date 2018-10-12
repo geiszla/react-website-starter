@@ -1,10 +1,11 @@
 import ApolloClient from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 
-export default (ssrMode, headers, cache) => new ApolloClient({
+// SERVER_URL is replaced by the actual URL by Webpack when bundling
+export default (ssrMode, headers, cache, serverUrl = SERVER_URL) => new ApolloClient({
   ssrMode,
   link: createHttpLink({
-    uri: `${SERVER_URL}/api`,
+    uri: `${serverUrl}/api`,
     credentials: 'same-origin',
     headers
   }),
