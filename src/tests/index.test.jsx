@@ -2,25 +2,22 @@
 
 import ReactDOM from 'react-dom';
 
+const indexPath = '../index.jsx';
+
 // TODO: Test app rendering
 describe('Client entry', () => {
-  // it('should mute [HMR] messages', () => {
-  //   require('../index.jsx');
-  //   console.log('');
-  //   global.console.log('[HMR] test');
-  //   expect(global.console.log.mock.calls.length).toBe(0);
-  // });
+  global.SERVER_URL = 'test';
+  let hydrateApp;
 
   it('should rehydrate React app on window load', async () => {
     ReactDOM.hydrate = jest.fn();
     global.window.addEventListener = jest.fn();
 
-    const { hydrateApp } = require('../index.jsx');
-    expect(global.window.addEventListener).toBeCalled();
+    ({ hydrateApp } = await import(indexPath));
+    expect(global.window.addEventListener).toHaveBeenCalled();
 
-    global.SERVER_URL = 'test';
     await hydrateApp();
-    expect(ReactDOM.hydrate).toBeCalled();
+    expect(ReactDOM.hydrate).toHaveBeenCalled();
   });
 
   it('should initialize hot module replacement', async () => {
@@ -29,10 +26,28 @@ describe('Client entry', () => {
         await expect(callback()).toBe(undefined);
       })
     };
-    const { hydrateApp } = require('../index.jsx');
 
     await hydrateApp(mockHmr);
+    expect(mockHmr.accept).toHaveBeenCalled();
+  });
 
-    expect(mockHmr.accept).toBeCalled();
+  it('should mute [HMR] messages, but display others', async () => {
+    const consoleLogSpy = jest.spyOn(console, '_logOriginal')
+      .mockImplementation(() => jest.fn());
+
+    console.log('[HMR] test');
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+
+    console.log('[HMR]');
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+
+    console.log('second test');
+    expect(consoleLogSpy).toHaveBeenCalledWith('second test');
+
+    console.log(' ');
+    expect(consoleLogSpy).toHaveBeenCalledWith(' ');
+
+    console.log('');
+    expect(consoleLogSpy).toHaveBeenCalledWith('');
   });
 });

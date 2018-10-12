@@ -18,10 +18,10 @@ import App from './components/App.jsx';
 import theme from './theme';
 
 // Disable Hot Module Replacement messages
-const consoleLog = console.log;
+console._logOriginal = console.log;
 console.log = (...args) => {
   if (args.length === 0 || typeof args[0] !== 'string' || !args[0].includes('[HMR]')) {
-    consoleLog.apply(console, args);
+    console._logOriginal(...args);
   }
 };
 
