@@ -11,9 +11,9 @@ import { MemoryRouter } from 'react-router';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import schema from '../../server/graphql';
-import App from '../components/App.jsx';
-import theme from '../theme';
+import schema from '../../../server/graphql';
+import App from '../../components/App.jsx';
+import theme from '../../theme';
 
 // Setup
 const executableSchema = makeExecutableSchema({
@@ -47,17 +47,18 @@ function mountApp(path) {
 
 mountApp('/');
 
-// Tests
-test('React Router redirection', () => {
-  const loginTree = mountApp('/login');
-  expect(loginTree.find('Login').length).toBeGreaterThan(0);
+describe('App component', () => {
+  it('should render the Login component when not logged in', () => {
+    const loginTree = mountApp('/login');
+    expect(loginTree.find('Login').length).toBeGreaterThan(0);
 
-  const homeTree = mountApp('/');
-  expect(homeTree.find('Login').length).toBeGreaterThan(0);
-});
+    const homeTree = mountApp('/');
+    expect(homeTree.find('Login').length).toBeGreaterThan(0);
+  });
 
-test('Logout mutation is called when the logout button is pressed', () => {
-  const wrapper = mount(mockApp('/'));
-  wrapper.find('App').instance().handleLogout();
-  // console.log(wrapper.debug());
+  it('should log out when logout button is pressed', () => {
+    const wrapper = mount(mockApp('/'));
+    wrapper.find('App').instance().handleLogout();
+    // console.log(wrapper.debug());
+  });
 });

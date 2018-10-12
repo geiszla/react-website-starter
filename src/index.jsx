@@ -6,7 +6,7 @@ import 'whatwg-fetch';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { hydrate } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { preloadReady } from 'react-loadable';
 import { BrowserRouter } from 'react-router-dom';
@@ -20,12 +20,12 @@ import theme from './theme';
 // Disable Hot Module Replacement messages
 const consoleLog = console.log;
 console.log = (...args) => {
-  if (args.length === 0 || !args[0].includes('[HMR]')) {
+  if (args.length === 0 || typeof args[0] !== 'string' || !args[0].includes('[HMR]')) {
     consoleLog.apply(console, args);
   }
 };
 
-window.addEventListener('load', async () => {
+async function hydrateApp(hotModuleReplacement = module.hot) {
   const inMemoryCache = new InMemoryCache().restore(window.__APOLLO_STATE__ || {});
   const client = createApolloClient(false, undefined, inMemoryCache);
 
@@ -41,16 +41,16 @@ window.addEventListener('load', async () => {
     </ApolloProvider>
   );
 
-  hydrate(
+  ReactDOM.hydrate(
     <AppContainer>
       {app}
     </AppContainer>,
     document.getElementById('root')
   );
 
-  if (module.hot) {
-    module.hot.accept('./components/App.jsx', () => {
-      hydrate(
+  if (hotModuleReplacement) {
+    hotModuleReplacement.accept('./components/App.jsx', () => {
+      ReactDOM.hydrate(
         <AppContainer>
           {app}
         </AppContainer>,
@@ -58,4 +58,7 @@ window.addEventListener('load', async () => {
       );
     });
   }
-});
+}
+
+window.addEventListener('load', hydrateApp);
+module.exports = { hydrateApp };

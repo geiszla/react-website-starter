@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 import apolloClient from '../apollo_client';
 
 global.fetch = fetch;
-global.SERVER_URL = 'abc';
+global.SERVER_URL = 'test';
 
 describe('Apollo Client', () => {
   it('should export a valid Apollo Client object without SSR', () => {
