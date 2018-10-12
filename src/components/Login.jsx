@@ -24,7 +24,7 @@ const styles = () => ({
     maxWidth: 382
   },
   title: {
-    fontSize: '20px',
+    fontSize: 20,
     margin: '7px 0 15px 0'
   },
   button: {

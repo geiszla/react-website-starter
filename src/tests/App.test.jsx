@@ -8,12 +8,12 @@ import { makeExecutableSchema } from 'graphql-tools';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { MemoryRouter } from 'react-router';
-import renderer from 'react-test-renderer';
+
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import schema from '../../server/graphql';
 import App from '../components/App.jsx';
-import { watchFile } from 'fs';
-import wait from 'waait';
+import theme from '../theme';
 
 // Setup
 const executableSchema = makeExecutableSchema({
@@ -33,24 +33,26 @@ configure({ adapter: new Adapter() });
 const mockApp = path => (
   <ApolloProvider client={apolloClient}>
     <MemoryRouter initialEntries={[path]}>
-      <App />
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
     </MemoryRouter>
   </ApolloProvider>
 );
 
 // Helper functions
-function createSnapshot(path) {
+async function mountApp(path) {
   return mount(mockApp(path));
 }
 
-createSnapshot('/');
+mountApp('/');
 
 // Tests
-test('React Router redirection', () => {
-  const loginTree = createSnapshot('/login');
+test('React Router redirection', async () => {
+  const loginTree = await mountApp('/login');
   expect(loginTree.find('Login').length).toBeGreaterThan(0);
 
-  const homeTree = createSnapshot('/');
+  const homeTree = await mountApp('/');
   expect(homeTree.find('Login').length).toBeGreaterThan(0);
 });
 
