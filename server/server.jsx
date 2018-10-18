@@ -6,6 +6,7 @@ import fetch from 'node-fetch';
 import Loadable from 'react-loadable';
 import spdy from 'spdy';
 
+import { setLogLevel } from '../node_modules/webpack/hot/log';
 import { app, httpRedirectApp } from './express.jsx';
 
 global.fetch = fetch;
@@ -23,15 +24,18 @@ startServer();
 async function startServer() {
   await Loadable.preloadAll();
 
+  let protocol;
   let port;
   if (process.env.NODE_ENV === 'production') {
     // Production environment
     http.createServer(httpRedirectApp).listen(process.env.UNSECURE_PORT || 8080);
 
+    protocol = 'https';
     port = process.env.PORT || 443;
     spdy.createServer(options, app).listen(port);
   } else {
     // Development environment
+    protocol = 'http';
     port = 8080;
     const server = http.createServer(app);
     server.listen(port);
@@ -39,15 +43,7 @@ async function startServer() {
     // Hot Module Replacement
     let currentApp = app;
     if (module.hot) {
-      // Disable Hot Module Replacement messages
-      const consoleLog = console.log;
-      console.log = (...args) => {
-        if (args.length > 0 && args[0].includes && args[0].includes('[HMR]')) {
-          return;
-        }
-
-        consoleLog.apply(console, args);
-      };
+      setLogLevel('warning');
 
       module.hot.accept(['./express.jsx'], () => {
         server.removeListener('request', currentApp);
@@ -57,5 +53,5 @@ async function startServer() {
     }
   }
 
-  console.log(`Server is started on port ${port}`);
+  console.log(`Server is started at ${protocol}://localhost:${port}`);
 }

@@ -18,14 +18,16 @@ import App from './components/App.jsx';
 import theme from './theme';
 
 // Disable Hot Module Replacement messages
-console._logOriginal = console.log;
-console.log = (...args) => {
-  if (args.length === 0 || typeof args[0] !== 'string' || !args[0].includes('[HMR]')) {
-    console._logOriginal(...args);
-  }
-};
+if (process.env.NODE_ENV !== 'production') {
+  console._logOriginal = console.log;
+  console.log = (...args) => {
+    if (args.length === 0 || typeof args[0] !== 'string' || !args[0].includes('[HMR]')) {
+      console._logOriginal(...args);
+    }
+  };
+}
 
-async function hydrateApp(hotModuleReplacement = module.hot) {
+export default async function hydrateApp(hotModuleReplacement = module.hot) {
   const inMemoryCache = new InMemoryCache().restore(window.__APOLLO_STATE__ || {});
   const client = createApolloClient(false, undefined, inMemoryCache);
 
@@ -60,5 +62,4 @@ async function hydrateApp(hotModuleReplacement = module.hot) {
   }
 }
 
-window.addEventListener('load', hydrateApp);
-module.exports = { hydrateApp };
+window.addEventListener('load', () => hydrateApp());

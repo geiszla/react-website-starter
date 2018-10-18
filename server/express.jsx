@@ -99,9 +99,12 @@ async function renderPage(reactApp, client, sheetsRegistry, modules) {
   const css = sheetsRegistry.toString();
 
   // Collect dynamically loaded modules
-  const uniqueModules = modules.filter((value, index, self) => self.indexOf(value) === index
-    && !value.includes('hot-update'));
+  const uniqueModules = modules.filter((module, index, self) => self.indexOf(module) === index);
   const bundles = getBundles(stats, uniqueModules);
+  const bundlesString = bundles
+    .filter(bundle => !bundle.file.includes('hot-update'))
+    .map(bundle => `<script src="${SCRIPTS_URL}/scripts/${bundle.file}" defer></script>`)
+    .join('\n');
 
   // Insert app content and stying into HTML
   return `
@@ -113,7 +116,7 @@ async function renderPage(reactApp, client, sheetsRegistry, modules) {
         <meta name="Description" content="Put your description here.">
         <title>React Boilerplate</title>
 
-        ${bundles.map(bundle => `<script src="${SCRIPTS_URL}/scripts/${bundle.file}" defer></script>`).join('\n')}
+        ${bundlesString}
         <script src="${SCRIPTS_URL}/scripts/main.bundle.js" defer></script>
 
         <script>window.__APOLLO_STATE__ = ${JSON.stringify(client.extract())};</script>

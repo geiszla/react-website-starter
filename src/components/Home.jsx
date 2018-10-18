@@ -73,7 +73,7 @@ class Home extends Component {
               <Button
                 variant="contained"
                 className={classes.button}
-                onClick={() => handleLogout()}
+                onClick={handleLogout}
               >
               Logout
               </Button>

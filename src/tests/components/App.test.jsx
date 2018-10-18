@@ -45,6 +45,7 @@ function mountApp(path) {
   return mount(mockApp(path));
 }
 
+// Mount App first to load loadable components
 mountApp('/');
 
 describe('App component', () => {
@@ -59,6 +60,6 @@ describe('App component', () => {
   it('should log out when logout button is pressed', () => {
     const wrapper = mount(mockApp('/'));
     wrapper.find('App').instance().handleLogout();
-    // console.log(wrapper.debug());
+    expect(wrapper.find('Login').length).toBeGreaterThan(0);
   });
 });

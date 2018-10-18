@@ -64,7 +64,7 @@ class Login extends Component {
                   margin="dense"
                   autoFocus
                   error={usernameError}
-                  onKeyPress={event => this.handleKeyPress(event)}
+                  onKeyPress={this.handleKeyPress}
                 />
                 <TextField
                   id="password"
@@ -73,7 +73,7 @@ class Login extends Component {
                   margin="dense"
                   autoComplete="current-password"
                   error={passwordError}
-                  onKeyPress={event => this.handleKeyPress(event)}
+                  onKeyPress={this.handleKeyPress}
                 />
               </CardContent>
               <CardActions>
@@ -81,7 +81,7 @@ class Login extends Component {
                   variant="contained"
                   color="primary"
                   className={classes.button}
-                  onClick={() => handleLogin()}
+                  onClick={handleLogin}
                 >
                 Login
                 </Button>

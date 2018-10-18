@@ -13,7 +13,8 @@ describe('Client entry', () => {
     ReactDOM.hydrate = jest.fn();
     global.window.addEventListener = jest.fn();
 
-    ({ hydrateApp } = await import(indexPath));
+    const index = await import(indexPath);
+    hydrateApp = index.default;
     expect(global.window.addEventListener).toHaveBeenCalled();
 
     await hydrateApp();
@@ -44,10 +45,11 @@ describe('Client entry', () => {
     console.log('second test');
     expect(consoleLogSpy).toHaveBeenCalledWith('second test');
 
-    console.log(' ');
-    expect(consoleLogSpy).toHaveBeenCalledWith(' ');
-
     console.log('');
     expect(consoleLogSpy).toHaveBeenCalledWith('');
+
+    const testObject = { test: ['object'] };
+    console.log(testObject);
+    expect(consoleLogSpy).toHaveBeenCalledWith(testObject);
   });
 });

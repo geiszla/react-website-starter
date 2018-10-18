@@ -100,7 +100,7 @@ class App extends Component {
             path="/login"
             render={defaultProps => (
               <Login
-                handleLogin={() => this.handleLogin()}
+                handleLogin={this.handleLogin}
                 usernameError={usernameError}
                 passwordError={passwordError}
                 {...defaultProps}
@@ -111,7 +111,7 @@ class App extends Component {
             path="/"
             render={defaultProps => (
               <Home
-                handleLogout={() => this.handleLogout()}
+                handleLogout={this.handleLogout}
                 username={username}
                 fromLogin={this.fromLogin}
                 {...defaultProps}

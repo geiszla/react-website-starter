@@ -25,6 +25,7 @@ const commonServerConfig = (serverUrl, scriptsUrl) => ({
     path: path.resolve(__dirname, '../dist'),
     filename: 'server.bundle.js'
   },
+  devtool: false,
   node: {
     __dirname: true,
     __filename: true
