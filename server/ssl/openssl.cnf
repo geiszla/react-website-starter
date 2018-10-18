@@ -1,13 +1,15 @@
-[req]
+[ req ]
 req_extensions = v3_req
 distinguished_name = req_distinguished_name
+prompt = no
+default_bits = 2048
 
-[req_distinguished_name]
+[ req_distinguished_name ]
 C = GB
 ST = GTMAN
 L = Manchester
-O = iManchester Toolbox
-OU = iManchester Toolbox
+O = React boilerplate
+OU = React boilerplate
 CN = localhost
 
 [ v3_req ]
@@ -15,5 +17,7 @@ basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 subjectAltName = @alt_names
 
-[alt_names]
+[ alt_names ]
 DNS.1 = localhost
+
+# openssl req -x509 -sha256 -days 24855 -config openssl.cnf -extensions v3_req -out cert.crt -keyout key.pem

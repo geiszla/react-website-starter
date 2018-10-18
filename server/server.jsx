@@ -14,7 +14,8 @@ global.fetch = fetch;
 // ! Important: Generate new key and set password when creating new project
 const options = {
   key: fs.readFileSync(path.resolve(__dirname, 'server/ssl/key.pem')),
-  cert: fs.readFileSync(path.resolve(__dirname, 'server/ssl/cert.crt'))
+  cert: fs.readFileSync(path.resolve(__dirname, 'server/ssl/cert.crt')),
+  passphrase: 'boilerplate'
 };
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
