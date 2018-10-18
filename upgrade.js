@@ -1,3 +1,5 @@
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
+
 const childProcess = require('child_process');
 
 const Promise = require('bluebird');
