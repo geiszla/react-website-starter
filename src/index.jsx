@@ -4,11 +4,11 @@ import '@babel/polyfill';
 import 'whatwg-fetch';
 
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { loadComponents } from 'loadable-components';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { preloadReady } from 'react-loadable';
 import { BrowserRouter } from 'react-router-dom';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -31,7 +31,7 @@ export default async function hydrateApp(hotModuleReplacement = module.hot) {
   const inMemoryCache = new InMemoryCache().restore(window.__APOLLO_STATE__ || {});
   const client = createApolloClient(false, undefined, inMemoryCache);
 
-  await preloadReady();
+  await loadComponents();
 
   const app = (
     <ApolloProvider client={client}>

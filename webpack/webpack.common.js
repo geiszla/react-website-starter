@@ -1,7 +1,6 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
-const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const webpack = require('webpack');
 
 const jsxRules = {
@@ -61,9 +60,6 @@ const commonClientConfig = (serverUrl, scriptsUrl) => ({
     new webpack.DefinePlugin({
       SERVER_URL: JSON.stringify(serverUrl),
       SCRIPTS_URL: JSON.stringify(scriptsUrl)
-    }),
-    new ReactLoadablePlugin({
-      filename: 'www/scripts/react-loadable.json'
     })
   ],
   module: jsxRules,

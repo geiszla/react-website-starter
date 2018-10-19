@@ -12,8 +12,7 @@
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
         ["@babel/plugin-proposal-class-properties", { "loose": true }],
 
-        "react-loadable/babel",
-        "@babel/plugin-syntax-dynamic-import",
+        "loadable-components/babel",
         
         "react-hot-loader/babel",
         ["@babel/plugin-transform-runtime", { "regenerator": true }]

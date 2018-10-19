@@ -1,14 +1,4 @@
-import React from 'react';
-import loadable from 'react-loadable';
+import loadable from 'loadable-components';
 
-const loading = () => <div>Loading...</div>;
-
-export const Login = loadable({
-  loader: () => import('./Login.jsx' /* webpackChunkName: "login" */),
-  loading
-});
-
-export const Home = loadable({
-  loader: () => import('./Home.jsx' /* webpackChunkName: "home" */),
-  loading
-});
+export const Login = loadable(() => import('./Login.jsx' /* webpackChunkName: "login" */));
+export const Home = loadable(() => import('./Home.jsx' /* webpackChunkName: "home" */));

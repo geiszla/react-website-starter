@@ -3,7 +3,6 @@ import http from 'http';
 import path from 'path';
 
 import fetch from 'node-fetch';
-import Loadable from 'react-loadable';
 import spdy from 'spdy';
 
 import { setLogLevel } from '../node_modules/webpack/hot/log';
@@ -23,10 +22,9 @@ startServer();
 
 // Start server
 async function startServer() {
-  await Loadable.preloadAll();
-
   let protocol;
   let port;
+
   if (process.env.NODE_ENV === 'production') {
     // Production environment
     http.createServer(httpRedirectApp).listen(process.env.UNSECURE_PORT || 8080);
@@ -50,6 +48,8 @@ async function startServer() {
         server.removeListener('request', currentApp);
         server.on('request', app);
         currentApp = app;
+
+        console.log('\n-------------[ Server restarted by HMR ]'.padEnd(55, '-'));
       });
     }
   }

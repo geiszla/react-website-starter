@@ -8,12 +8,11 @@ import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import { create } from 'jss';
 import jssPreset from 'jss-preset-default';
+import { getLoadableState } from 'loadable-components/server';
 import morgan from 'morgan';
 import React from 'react';
 import { ApolloProvider, renderToStringWithData } from 'react-apollo';
 import { JssProvider, SheetsRegistry } from 'react-jss';
-import Loadable from 'react-loadable';
-import { getBundles } from 'react-loadable/webpack';
 import { StaticRouter } from 'react-router-dom';
 import favicon from 'serve-favicon';
 
@@ -24,7 +23,6 @@ import { InMemoryCache } from '../node_modules/apollo-cache-inmemory/lib/inMemor
 import createApolloClient from '../src/apollo_client';
 import App from '../src/components/App.jsx';
 import muiTheme from '../src/theme';
-import stats from '../www/scripts/react-loadable.json';
 import graphQLSchema from './graphql';
 
 // Redirect Webserver
@@ -53,7 +51,7 @@ app.use(cookieSession({
 
 // Webserver entry point
 app.get('*', async (req, res) => {
-  console.log(`\n------------------[ PAGE LOAD: ${req.url} ]------------------`);
+  console.log(`\n----------------[ PAGE LOAD: ${req.url} ]`.padEnd(55, '-'));
 
   // Set up Apollo client
   const headers = Object.assign({}, req.headers, { accept: 'application/json' });
@@ -64,25 +62,21 @@ app.get('*', async (req, res) => {
   const jss = create(jssPreset());
   jss.options.createGenerateClassName = createGenerateClassName;
 
-  const modules = [];
   const context = {};
-
   const reactApp = (
-    <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-      <ApolloProvider client={client}>
-        <StaticRouter location={req.url} context={context}>
-          <JssProvider registry={sheetsRegistry} jss={jss}>
-            <MuiThemeProvider theme={muiTheme} sheetsManager={new Map()}>
-              <App />
-            </MuiThemeProvider>
-          </JssProvider>
-        </StaticRouter>
-      </ApolloProvider>
-    </Loadable.Capture>
+    <ApolloProvider client={client}>
+      <StaticRouter location={req.url} context={context}>
+        <JssProvider registry={sheetsRegistry} jss={jss}>
+          <MuiThemeProvider theme={muiTheme} sheetsManager={new Map()}>
+            <App />
+          </MuiThemeProvider>
+        </JssProvider>
+      </StaticRouter>
+    </ApolloProvider>
   );
 
   // Render current page of React app to static HTML
-  const staticHtml = await renderPage(reactApp, client, sheetsRegistry, modules);
+  const staticHtml = await renderPage(reactApp, client, sheetsRegistry);
 
   if (context.url) {
     // Handle React Router redirect
@@ -94,17 +88,11 @@ app.get('*', async (req, res) => {
   }
 });
 
-async function renderPage(reactApp, client, sheetsRegistry, modules) {
+async function renderPage(reactApp, client, sheetsRegistry) {
   const content = await renderToStringWithData(reactApp);
   const css = sheetsRegistry.toString();
 
-  // Collect dynamically loaded modules
-  const uniqueModules = modules.filter((module, index, self) => self.indexOf(module) === index);
-  const bundles = getBundles(stats, uniqueModules);
-  const bundlesString = bundles
-    .filter(bundle => !bundle.file.includes('hot-update'))
-    .map(bundle => `<script src="${SCRIPTS_URL}/scripts/${bundle.file}" defer></script>`)
-    .join('\n');
+  const loadableState = await getLoadableState(reactApp);
 
   // Insert app content and stying into HTML
   return `
@@ -116,10 +104,10 @@ async function renderPage(reactApp, client, sheetsRegistry, modules) {
         <meta name="Description" content="Put your description here.">
         <title>React Boilerplate</title>
 
-        ${bundlesString}
-        <script src="${SCRIPTS_URL}/scripts/main.bundle.js" defer></script>
-
         <script>window.__APOLLO_STATE__ = ${JSON.stringify(client.extract())};</script>
+
+        ${loadableState.getScriptTag()}
+        <script src="${SCRIPTS_URL}/scripts/main.bundle.js" defer></script>
 
         <link rel="stylesheet" type="text/css" href="styles.css">
       </head>
