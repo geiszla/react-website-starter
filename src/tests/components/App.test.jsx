@@ -15,6 +15,9 @@ import schema from '../../../server/graphql';
 import App from '../../components/App.jsx';
 import theme from '../../theme';
 
+// TODO: Test Material-UI theme
+// TODO: Test react-loadable loading
+
 // Setup
 const executableSchema = makeExecutableSchema({
   typeDefs: printSchema(schema),
@@ -23,7 +26,7 @@ const executableSchema = makeExecutableSchema({
   }
 });
 
-const apolloClient = new ApolloClient({
+const mockClient = new ApolloClient({
   link: new SchemaLink({ schema: executableSchema }),
   cache: new InMemoryCache()
 });
@@ -31,7 +34,7 @@ const apolloClient = new ApolloClient({
 configure({ adapter: new Adapter() });
 
 const mockApp = path => (
-  <ApolloProvider client={apolloClient}>
+  <ApolloProvider client={mockClient}>
     <MemoryRouter initialEntries={[path]}>
       <MuiThemeProvider theme={theme}>
         <App />
@@ -57,8 +60,8 @@ describe('App component', () => {
     expect(homeTree.find('Login').length).toBeGreaterThan(0);
   });
 
-  it('should log out when logout button is pressed', () => {
-    const wrapper = mount(mockApp('/'));
+  it('should log out when logout handler is called', () => {
+    const wrapper = mountApp('/');
     wrapper.find('App').instance().handleLogout();
     expect(wrapper.find('Login').length).toBeGreaterThan(0);
   });
