@@ -17,7 +17,6 @@ import createApolloClient from './apollo_client';
 import App from './components/App.jsx';
 import theme from './theme';
 
-debugger;
 // Disable Hot Module Replacement messages
 if (process.env.NODE_ENV !== 'production') {
   console.logOriginal = console.log;
