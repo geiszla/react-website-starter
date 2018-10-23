@@ -28,10 +28,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default async function hydrateApp(hotModuleReplacement = module.hot) {
+  await loadComponents();
+
   const inMemoryCache = new InMemoryCache().restore(window.__APOLLO_STATE__ || {});
   const client = createApolloClient(false, undefined, inMemoryCache);
-
-  await loadComponents();
 
   const app = (
     <ApolloProvider client={client}>

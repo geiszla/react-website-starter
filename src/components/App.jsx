@@ -77,15 +77,15 @@ class App extends Component {
   render() {
     const { passwordError, usernameError } = this;
     const { pathname } = this.props.location;
-    const username = this.props.data.getUsername;
 
-    const isLoggedIn = username !== null;
+    const { data } = this.props;
+    const username = data.getUsername;
 
-    if (!isLoggedIn && pathname !== '/login') {
+    if (!data.loading && !username && pathname !== '/login') {
       return <Redirect push to="/login" />;
     }
 
-    if (isLoggedIn === true && pathname === '/login') {
+    if (!data.loading && username && pathname === '/login') {
       return <Redirect push to="/" />;
     }
 

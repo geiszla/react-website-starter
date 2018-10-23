@@ -16,8 +16,7 @@ import { JssProvider, SheetsRegistry } from 'react-jss';
 import { StaticRouter } from 'react-router-dom';
 import favicon from 'serve-favicon';
 
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
+import { createGenerateClassName, MuiThemeProvider } from '@material-ui/core/styles';
 
 import { InMemoryCache } from '../node_modules/apollo-cache-inmemory/lib/inMemoryCache';
 import createApolloClient from '../src/apollo_client';
@@ -54,19 +53,19 @@ app.get('*', async (req, res) => {
   console.log(`\n----------------[ PAGE LOAD: ${req.url} ]`.padEnd(55, '-'));
 
   // Set up Apollo client
-  const headers = Object.assign({}, req.headers, { accept: 'application/json' });
+  const headers = { ...req.headers, accept: 'application/json' };
   const client = createApolloClient(true, headers, new InMemoryCache());
 
   // Set up MaterialUI theme provider
   const sheetsRegistry = new SheetsRegistry();
   const jss = create(jssPreset());
-  jss.options.createGenerateClassName = createGenerateClassName;
+  const generateClassName = createGenerateClassName();
 
   const context = {};
   const reactApp = (
     <ApolloProvider client={client}>
       <StaticRouter location={req.url} context={context}>
-        <JssProvider registry={sheetsRegistry} jss={jss}>
+        <JssProvider registry={sheetsRegistry} jss={jss} generateClassName={generateClassName}>
           <MuiThemeProvider theme={muiTheme} sheetsManager={new Map()}>
             <App />
           </MuiThemeProvider>
@@ -89,10 +88,10 @@ app.get('*', async (req, res) => {
 });
 
 async function renderPage(reactApp, client, sheetsRegistry) {
-  const content = await renderToStringWithData(reactApp);
-  const css = sheetsRegistry.toString();
-
   const loadableState = await getLoadableState(reactApp);
+  const content = await renderToStringWithData(reactApp);
+
+  const css = sheetsRegistry.toString();
 
   // Insert app content and stying into HTML
   return `
