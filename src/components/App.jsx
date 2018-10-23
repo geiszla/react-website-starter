@@ -13,23 +13,20 @@ import {
   Switch,
   withRouter
 } from 'react-router-dom';
-
-import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 import { Home, Login } from './routes.jsx';
 
-const styles = () => ({
-  background: {
-    backgroundPosition: '35%',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    filter: 'blur(10px)',
-    height: '100%',
-    position: 'fixed',
-    transition: 'opacity 500ms ease-in-out',
-    width: '100%'
-  }
-});
+const Background = styled.div`
+  background-position: 35%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(10px);
+  height: 100%;
+  position: fixed;
+  transition: opacity 500ms ease-in-out;
+  width: 100%;
+`;
 
 @observer
 class App extends Component {
@@ -77,24 +74,23 @@ class App extends Component {
   render() {
     const { passwordError, usernameError } = this;
     const { pathname } = this.props.location;
-    const username = this.props.data.getUsername;
 
-    const isLoggedIn = username !== null;
+    const { data } = this.props;
+    const username = data.getUsername;
 
-    if (!isLoggedIn && pathname !== '/login') {
+    if (!data.loading && !username && pathname !== '/login') {
       return <Redirect push to="/login" />;
     }
 
-    if (isLoggedIn === true && pathname === '/login') {
+    if (!data.loading && username && pathname === '/login') {
       return <Redirect push to="/" />;
     }
 
+    const backgroundImage = pathname === '/login' || this.fromLogin ? 'url(images/out.jpg)'
+      : 'url(images/in.jpg)';
     return (
       <Fragment>
-        <div
-          className={this.props.classes.background}
-          style={{ backgroundImage: pathname === '/login' || this.fromLogin ? 'url(images/out.jpg)' : 'url(images/in.jpg)' }}
-        />
+        <Background style={{ backgroundImage }} />
         <Switch>
           <Route
             path="/login"
@@ -147,9 +143,6 @@ const loginMutationOptions = {
 };
 
 App.propTypes = {
-  classes: PropTypes.shape({
-    background: PropTypes.string.isRequired
-  }).isRequired,
   data: PropTypes.shape({
     getUsername: PropTypes.string
   }).isRequired,
@@ -171,6 +164,5 @@ export default compose(
     name: 'logoutMutate',
     options: loginMutationOptions
   }),
-  withRouter,
-  withStyles(styles)
+  withRouter
 )(App);

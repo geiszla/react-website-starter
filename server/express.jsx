@@ -15,9 +15,9 @@ import { ApolloProvider, renderToStringWithData } from 'react-apollo';
 import { JssProvider, SheetsRegistry } from 'react-jss';
 import { StaticRouter } from 'react-router-dom';
 import favicon from 'serve-favicon';
+import { ServerStyleSheet } from 'styled-components';
 
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
+import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/styles';
 
 import { InMemoryCache } from '../node_modules/apollo-cache-inmemory/lib/inMemoryCache';
 import createApolloClient from '../src/apollo_client';
@@ -54,19 +54,21 @@ app.get('*', async (req, res) => {
   console.log(`\n----------------[ PAGE LOAD: ${req.url} ]`.padEnd(55, '-'));
 
   // Set up Apollo client
-  const headers = Object.assign({}, req.headers, { accept: 'application/json' });
+  const headers = { ...req.headers, accept: 'application/json' };
   const client = createApolloClient(true, headers, new InMemoryCache());
 
-  // Set up MaterialUI theme provider
+  const generate = createGenerateClassName();
+  const generateClassName = (rule, styleSheet) => {
+     /*console.log(styleSheet.options.classNamePrefix);*/ const name = generate(rule, styleSheet); console.log(name); return name;
+  };
+  const jss = create({ ...jssPreset(), insertionPoint: 'jss-insertion-point' });
   const sheetsRegistry = new SheetsRegistry();
-  const jss = create(jssPreset());
-  jss.options.createGenerateClassName = createGenerateClassName;
 
   const context = {};
   const reactApp = (
     <ApolloProvider client={client}>
       <StaticRouter location={req.url} context={context}>
-        <JssProvider registry={sheetsRegistry} jss={jss}>
+        <JssProvider registry={sheetsRegistry} jss={jss} generateClassName={generateClassName}>
           <MuiThemeProvider theme={muiTheme} sheetsManager={new Map()}>
             <App />
           </MuiThemeProvider>
@@ -89,10 +91,18 @@ app.get('*', async (req, res) => {
 });
 
 async function renderPage(reactApp, client, sheetsRegistry) {
-  const content = await renderToStringWithData(reactApp);
-  const css = sheetsRegistry.toString();
+  // Generate styles
+  const sheet = new ServerStyleSheet();
 
   const loadableState = await getLoadableState(reactApp);
+  const content = await renderToStringWithData(reactApp);
+
+  // console.log(loadableState);
+
+  // console.log(content);
+  // console.log(sheetsRegistry);
+  const css = sheetsRegistry.toString();
+  const styles = sheet.getStyleTags();
 
   // Insert app content and stying into HTML
   return `
@@ -110,6 +120,8 @@ async function renderPage(reactApp, client, sheetsRegistry) {
         <script src="${SCRIPTS_URL}/scripts/main.bundle.js" defer></script>
 
         <link rel="stylesheet" type="text/css" href="styles.css">
+        <!-- jss-insertion-point -->
+        ${styles}
       </head>
       <body>
         <div id="root">${content}</div>

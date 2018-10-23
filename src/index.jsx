@@ -4,14 +4,16 @@ import '@babel/polyfill';
 import 'whatwg-fetch';
 
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { create } from 'jss';
 import { loadComponents } from 'loadable-components';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
+import JssProvider from 'react-jss/lib/JssProvider';
 import { BrowserRouter } from 'react-router-dom';
 
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { createGenerateClassName, MuiThemeProvider, jssPreset } from '@material-ui/core/styles';
 
 import createApolloClient from './apollo_client';
 import App from './components/App.jsx';
@@ -28,17 +30,24 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default async function hydrateApp(hotModuleReplacement = module.hot) {
+  await loadComponents();
+
   const inMemoryCache = new InMemoryCache().restore(window.__APOLLO_STATE__ || {});
   const client = createApolloClient(false, undefined, inMemoryCache);
 
-  await loadComponents();
+  const generate = createGenerateClassName();
+  const generateClassName = (rule, styleSheet) => {
+    /*console.log(styleSheet.options.classNamePrefix);*/ const name = generate(rule, styleSheet); console.log(name); return name;
+  };
 
   const app = (
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <MuiThemeProvider theme={theme}>
-          <App />
-        </MuiThemeProvider>
+        <JssProvider generateClassName={generateClassName}>
+          <MuiThemeProvider theme={theme}>
+            <App />
+          </MuiThemeProvider>
+        </JssProvider>
       </BrowserRouter>
     </ApolloProvider>
   );

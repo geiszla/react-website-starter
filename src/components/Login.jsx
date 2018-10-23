@@ -8,29 +8,21 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
-const styles = () => ({
-  cardContainer: {
-    height: '100%',
-    opacity: 0,
-    transition: 'opacity 500ms ease-in-out'
-  },
-  card: {
-    position: 'relative',
-    top: '35%',
-    margin: 'auto',
-    transform: 'translateY(-30%)',
-    maxWidth: 382
-  },
-  title: {
-    fontSize: 20,
-    margin: '7px 0 15px 0'
-  },
-  button: {
-    marginLeft: 'auto'
-  }
-});
+const CardContainer = styled.div`
+  height: 100%;
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+`;
+
+const StyledCard = styled(Card)`
+  position: relative;
+  top: 35%;
+  margin: auto;
+  transform: translateY(-30%);
+  max-width: 382px;
+`;
 
 const transitionStyles = {
   entering: { opacity: 0 },
@@ -46,16 +38,16 @@ class Login extends Component {
 
   render() {
     const {
-      classes, usernameError, passwordError, handleLogin
+      usernameError, passwordError, handleLogin
     } = this.props;
 
     return (
       <Transition appear in timeout={0}>
         {state => (
-          <div className={classes.cardContainer} style={{ ...transitionStyles[state] }}>
-            <Card className={classes.card}>
+          <CardContainer style={{ ...transitionStyles[state] }}>
+            <StyledCard>
               <CardContent>
-                <Typography type="title" className={classes.title}>
+                <Typography type="title">
                 Choose a name and enter password
                 </Typography>
                 <TextField
@@ -80,14 +72,13 @@ class Login extends Component {
                 <Button
                   variant="contained"
                   color="primary"
-                  className={classes.button}
                   onClick={handleLogin}
                 >
                 Login
                 </Button>
               </CardActions>
-            </Card>
-          </div>
+            </StyledCard>
+          </CardContainer>
         )}
       </Transition>
     );
@@ -95,14 +86,9 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  classes: PropTypes.shape({
-    card: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    button: PropTypes.string.isRequired
-  }).isRequired,
   handleLogin: PropTypes.func.isRequired,
   usernameError: PropTypes.bool.isRequired,
   passwordError: PropTypes.bool.isRequired
 };
 
-export default withStyles(styles)(Login);
+export default Login;

@@ -15,7 +15,9 @@
         "loadable-components/babel",
         
         "react-hot-loader/babel",
-        ["@babel/plugin-transform-runtime", { "regenerator": true }]
+        ["@babel/plugin-transform-runtime", { "regenerator": true }],
+
+        ["babel-plugin-styled-components", { "ssr": true, "displayName": true }]
     ],
     "env": {
         "test": {
