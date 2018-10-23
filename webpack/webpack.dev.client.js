@@ -1,5 +1,3 @@
-/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
-
 const merge = require('webpack-merge');
 const RemoveSourceMapUrlWebpackPlugin = require('@rbarilani/remove-source-map-url-webpack-plugin');
 const webpack = require('webpack');

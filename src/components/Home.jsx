@@ -65,7 +65,7 @@ class Home extends Component {
             <div className={classes.background} style={{ opacity: 1 }} />
             <div className={classes.content}>
               <Typography type="headline" className={classes.status}>
-              Hello
+                Hello
                 {' '}
                 {username}
                 {'!'}
@@ -75,7 +75,7 @@ class Home extends Component {
                 className={classes.button}
                 onClick={handleLogout}
               >
-              Logout
+                Logout
               </Button>
             </div>
           </div>

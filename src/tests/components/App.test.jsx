@@ -21,9 +21,7 @@ import theme from '../../theme';
 // Setup
 const executableSchema = makeExecutableSchema({
   typeDefs: printSchema(schema),
-  resolverValidationOptions: {
-    requireResolversForResolveType: false
-  }
+  resolverValidationOptions: { requireResolversForResolveType: false }
 });
 
 const mockClient = new ApolloClient({

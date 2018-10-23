@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home component should match the snapshot when rendered 1`] = `
+<div
+  className="Home-container-2"
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+>
+  <div
+    className="Home-background-1"
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  />
+  <div
+    className="Home-content-3"
+  >
+    <p
+      className="MuiTypography-root-6 MuiTypography-body1-15 Home-status-4"
+      type="headline"
+    >
+      Hello
+       
+      username
+      !
+    </p>
+    <button
+      className="MuiButtonBase-root-67 MuiButton-root-41 MuiButton-contained-52 MuiButton-raised-55 Home-button-5"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[MockFunction]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-42"
+      >
+        Logout
+      </span>
+      <span
+        className="MuiTouchRipple-root-70"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Home component should match the snapshot when rendered 2`] = `
+<div
+  className="Home-container-2"
+  style={
+    Object {
+      "opacity": 0,
+    }
+  }
+>
+  <div
+    className="Home-background-1"
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  />
+  <div
+    className="Home-content-3"
+  >
+    <p
+      className="MuiTypography-root-6 MuiTypography-body1-15 Home-status-4"
+      type="headline"
+    >
+      Hello
+       
+      username
+      !
+    </p>
+    <button
+      className="MuiButtonBase-root-67 MuiButton-root-41 MuiButton-contained-52 MuiButton-raised-55 Home-button-5"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[MockFunction]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-42"
+      >
+        Logout
+      </span>
+      <span
+        className="MuiTouchRipple-root-70"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Home component should match the snapshot when rendered 3`] = `
+<div
+  className="Home-container-2"
+  style={
+    Object {
+      "opacity": 0,
+    }
+  }
+>
+  <div
+    className="Home-background-1"
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  />
+  <div
+    className="Home-content-3"
+  >
+    <p
+      className="MuiTypography-root-6 MuiTypography-body1-15 Home-status-4"
+      type="headline"
+    >
+      Hello
+       
+      
+      !
+    </p>
+    <button
+      className="MuiButtonBase-root-67 MuiButton-root-41 MuiButton-contained-52 MuiButton-raised-55 Home-button-5"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[MockFunction]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="button"
+    >
+      <span
+        className="MuiButton-label-42"
+      >
+        Logout
+      </span>
+      <span
+        className="MuiTouchRipple-root-70"
+      />
+    </button>
+  </div>
+</div>
+`;

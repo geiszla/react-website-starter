@@ -1,6 +1,6 @@
 /* eslint global-require: 0 */
 
-import Loadable from 'loadable-components';
+import * as Loadable from 'loadable-components';
 import ReactDOM from 'react-dom';
 
 const indexPath = '../index.jsx';
@@ -34,7 +34,7 @@ describe('Client entry', () => {
       })
     };
 
-    await hydrateApp(mockHmr);
+    await hydrateApp(null, mockHmr);
     expect(mockHmr.accept).toHaveBeenCalled();
   });
 

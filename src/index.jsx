@@ -4,7 +4,7 @@ import '@babel/polyfill';
 import 'whatwg-fetch';
 
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import Loadable from 'loadable-components';
+import * as Loadable from 'loadable-components';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import ReactDOM from 'react-dom';
@@ -27,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') {
   };
 }
 
-export default async function hydrateApp(hotModuleReplacement = module.hot) {
+export default async function hydrateApp(_, hotModuleReplacement = module.hot) {
   await Loadable.loadComponents();
 
   const inMemoryCache = new InMemoryCache().restore(window.__APOLLO_STATE__ || {});
