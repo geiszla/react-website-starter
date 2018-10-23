@@ -5746,7 +5746,7 @@ mobx-react@^5.3.5:
     hoist-non-react-statics "^3.0.0"
     react-lifecycles-compat "^3.0.2"
 
-mobx@^4.5.0:
+mobx@^4.5.2:
   version "4.5.2"
   resolved "https://registry.npmjs.org/mobx/-/mobx-4.5.2.tgz#d7ddfb1ac953197dff62e1da7175c5c8ad9de790"
   integrity sha512-6+3+1PWBYluoj5Yw15ISyApy1CQawzLLdTmbZ4yg0pVZLmvB65Z7gxYBvKheC96YK5BmNcIHaOdVhxBtZYUIiw==

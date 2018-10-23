@@ -56,7 +56,7 @@ class Login extends Component {
             <Card className={classes.card}>
               <CardContent>
                 <Typography type="title" className={classes.title}>
-                Choose a name and enter password
+                  Choose a name and enter password
                 </Typography>
                 <TextField
                   id="username"
@@ -83,7 +83,7 @@ class Login extends Component {
                   className={classes.button}
                   onClick={handleLogin}
                 >
-                Login
+                  Login
                 </Button>
               </CardActions>
             </Card>

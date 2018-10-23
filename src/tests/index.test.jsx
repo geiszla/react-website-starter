@@ -1,12 +1,17 @@
 /* eslint global-require: 0 */
 
+import Loadable from 'loadable-components';
 import ReactDOM from 'react-dom';
 
 const indexPath = '../index.jsx';
 
+// Test setup
+global.SERVER_URL = 'test';
+Loadable.loadComponents = jest.fn();
+process.env.NODE_ENV = 'production';
+
 // TODO: Test app rendering
 describe('Client entry', () => {
-  global.SERVER_URL = 'test';
   let hydrateApp;
 
   it('should rehydrate React app on window load', async () => {
@@ -18,6 +23,7 @@ describe('Client entry', () => {
     expect(global.window.addEventListener).toHaveBeenCalled();
 
     await hydrateApp();
+    expect(Loadable.loadComponents).toHaveBeenCalled();
     expect(ReactDOM.hydrate).toHaveBeenCalled();
   });
 
@@ -33,7 +39,19 @@ describe('Client entry', () => {
   });
 
   it('should mute [HMR] messages, but display others', async () => {
-    const consoleLogSpy = jest.spyOn(console, '_logOriginal')
+    // Test production environment
+    console.log = jest.fn();
+
+    console.log('[HMR] test');
+    expect(console.logOriginal).toBe(undefined);
+
+    // Test development environment
+    jest.resetModules();
+    process.env.NODE_ENV = 'development';
+    await import(indexPath);
+
+    console.logOriginal = jest.fn();
+    const consoleLogSpy = jest.spyOn(console, 'logOriginal')
       .mockImplementation(() => jest.fn());
 
     console.log('[HMR] test');
@@ -42,8 +60,8 @@ describe('Client entry', () => {
     console.log('[HMR]');
     expect(consoleLogSpy).not.toHaveBeenCalled();
 
-    console.log('second test');
-    expect(consoleLogSpy).toHaveBeenCalledWith('second test');
+    console.log('test message');
+    expect(consoleLogSpy).toHaveBeenCalledWith('test message');
 
     console.log('');
     expect(consoleLogSpy).toHaveBeenCalledWith('');

@@ -52,7 +52,7 @@
     "jss": "^9.8.7",
     "jss-preset-default": "^4.5.0",
     "loadable-components": "^2.2.3",
-    "mobx": "^4.5.0",
+    "mobx": "^4.5.2",
     "mobx-react": "^5.3.5",
     "morgan": "^1.9.1",
     "node-fetch": "^2.2.0",
