@@ -14,13 +14,13 @@ const executableSchema = makeExecutableSchema({
 addMockFunctionsToSchema({ schema: executableSchema });
 
 const handleLogout = jest.fn();
-const loginRenderer = TestRenderer.create(
+const homeRenderer = TestRenderer.create(
   <Home fromLogin={false} username="username" handleLogout={handleLogout} />
 );
 
 describe('Home component', () => {
   it('should match the snapshot when rendered', () => {
-    expect(loginRenderer.toJSON()).toMatchSnapshot();
+    expect(homeRenderer.toJSON()).toMatchSnapshot();
 
     const fromLoginRenderer = TestRenderer.create(
       <Home fromLogin username="username" handleLogout={handleLogout} />
@@ -34,7 +34,7 @@ describe('Home component', () => {
   });
 
   it('should call handleLogout when logout button is pressed', () => {
-    const logoutButton = loginRenderer.root.find(element => element.type === 'button'
+    const logoutButton = homeRenderer.root.find(element => element.type === 'button'
       && element.children
       && element.children.some(child => child.children && child.children[0] === 'Logout'));
 

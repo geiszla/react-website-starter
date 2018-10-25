@@ -1,0 +1,457 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home component should match the snapshot when rendered 1`] = `
+<div
+  className="Login-cardContainer-1"
+  style={
+    Object {
+      "opacity": 0,
+    }
+  }
+>
+  <div
+    className="MuiPaper-root-6 MuiPaper-elevation1-9 MuiPaper-rounded-7 MuiCard-root-5 Login-card-2"
+  >
+    <div
+      className="MuiCardContent-root-33"
+    >
+      <p
+        className="MuiTypography-root-34 MuiTypography-body1-43 Login-title-3"
+        type="title"
+      >
+        Choose a name and enter password
+      </p>
+      <div
+        className="MuiFormControl-root-69 MuiFormControl-marginDense-71"
+        onKeyPress={[Function]}
+      >
+        <label
+          className="MuiFormLabel-root-80 MuiInputLabel-root-73 MuiInputLabel-formControl-74 MuiInputLabel-animated-77 MuiInputLabel-marginDense-75"
+          data-shrink={false}
+          htmlFor="username"
+        >
+          Name
+        </label>
+        <div
+          className="MuiInputBase-root-100 MuiInput-root-87 MuiInput-underline-91 MuiInputBase-formControl-101 MuiInput-formControl-88 MuiInputBase-marginDense-107"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={true}
+            className="MuiInputBase-input-110 MuiInput-input-95 MuiInputBase-inputMarginDense-111 MuiInput-inputMarginDense-96"
+            disabled={false}
+            id="username"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="text"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiFormControl-root-69 MuiFormControl-marginDense-71"
+        onKeyPress={[Function]}
+      >
+        <label
+          className="MuiFormLabel-root-80 MuiInputLabel-root-73 MuiInputLabel-formControl-74 MuiInputLabel-animated-77 MuiInputLabel-marginDense-75"
+          data-shrink={false}
+          htmlFor="password"
+        >
+          Password
+        </label>
+        <div
+          className="MuiInputBase-root-100 MuiInput-root-87 MuiInput-underline-91 MuiInputBase-formControl-101 MuiInput-formControl-88 MuiInputBase-marginDense-107"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoComplete="current-password"
+            className="MuiInputBase-input-110 MuiInput-input-95 MuiInputBase-inputType-113 MuiInput-inputType-98 MuiInputBase-inputMarginDense-111 MuiInput-inputMarginDense-96"
+            disabled={false}
+            id="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="password"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiCardActions-root-117"
+    >
+      <button
+        className="MuiButtonBase-root-145 MuiButton-root-119 MuiButton-contained-130 MuiButton-containedPrimary-131 MuiButton-raised-133 MuiButton-raisedPrimary-134 Login-button-4 MuiCardActions-action-118"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[MockFunction]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-120"
+        >
+          Login
+        </span>
+        <span
+          className="MuiTouchRipple-root-148"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Home component should match the snapshot when rendered 2`] = `
+<div
+  className="Login-cardContainer-1"
+  style={
+    Object {
+      "opacity": 0,
+    }
+  }
+>
+  <div
+    className="MuiPaper-root-6 MuiPaper-elevation1-9 MuiPaper-rounded-7 MuiCard-root-5 Login-card-2"
+  >
+    <div
+      className="MuiCardContent-root-33"
+    >
+      <p
+        className="MuiTypography-root-34 MuiTypography-body1-43 Login-title-3"
+        type="title"
+      >
+        Choose a name and enter password
+      </p>
+      <div
+        className="MuiFormControl-root-69 MuiFormControl-marginDense-71"
+        onKeyPress={[Function]}
+      >
+        <label
+          className="MuiFormLabel-root-80 MuiFormLabel-error-83 MuiInputLabel-root-73 MuiInputLabel-formControl-74 MuiInputLabel-animated-77 MuiInputLabel-marginDense-75"
+          data-shrink={false}
+          htmlFor="username"
+        >
+          Name
+        </label>
+        <div
+          className="MuiInputBase-root-100 MuiInput-root-87 MuiInput-underline-91 MuiInputBase-error-106 MuiInput-error-92 MuiInputBase-formControl-101 MuiInput-formControl-88 MuiInputBase-marginDense-107"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={true}
+            autoFocus={true}
+            className="MuiInputBase-input-110 MuiInput-input-95 MuiInputBase-inputMarginDense-111 MuiInput-inputMarginDense-96"
+            disabled={false}
+            id="username"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="text"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiFormControl-root-69 MuiFormControl-marginDense-71"
+        onKeyPress={[Function]}
+      >
+        <label
+          className="MuiFormLabel-root-80 MuiInputLabel-root-73 MuiInputLabel-formControl-74 MuiInputLabel-animated-77 MuiInputLabel-marginDense-75"
+          data-shrink={false}
+          htmlFor="password"
+        >
+          Password
+        </label>
+        <div
+          className="MuiInputBase-root-100 MuiInput-root-87 MuiInput-underline-91 MuiInputBase-formControl-101 MuiInput-formControl-88 MuiInputBase-marginDense-107"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoComplete="current-password"
+            className="MuiInputBase-input-110 MuiInput-input-95 MuiInputBase-inputType-113 MuiInput-inputType-98 MuiInputBase-inputMarginDense-111 MuiInput-inputMarginDense-96"
+            disabled={false}
+            id="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="password"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiCardActions-root-117"
+    >
+      <button
+        className="MuiButtonBase-root-145 MuiButton-root-119 MuiButton-contained-130 MuiButton-containedPrimary-131 MuiButton-raised-133 MuiButton-raisedPrimary-134 Login-button-4 MuiCardActions-action-118"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[MockFunction]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-120"
+        >
+          Login
+        </span>
+        <span
+          className="MuiTouchRipple-root-148"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Home component should match the snapshot when rendered 3`] = `
+<div
+  className="Login-cardContainer-1"
+  style={
+    Object {
+      "opacity": 0,
+    }
+  }
+>
+  <div
+    className="MuiPaper-root-6 MuiPaper-elevation1-9 MuiPaper-rounded-7 MuiCard-root-5 Login-card-2"
+  >
+    <div
+      className="MuiCardContent-root-33"
+    >
+      <p
+        className="MuiTypography-root-34 MuiTypography-body1-43 Login-title-3"
+        type="title"
+      >
+        Choose a name and enter password
+      </p>
+      <div
+        className="MuiFormControl-root-69 MuiFormControl-marginDense-71"
+        onKeyPress={[Function]}
+      >
+        <label
+          className="MuiFormLabel-root-80 MuiInputLabel-root-73 MuiInputLabel-formControl-74 MuiInputLabel-animated-77 MuiInputLabel-marginDense-75"
+          data-shrink={false}
+          htmlFor="username"
+        >
+          Name
+        </label>
+        <div
+          className="MuiInputBase-root-100 MuiInput-root-87 MuiInput-underline-91 MuiInputBase-formControl-101 MuiInput-formControl-88 MuiInputBase-marginDense-107"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={true}
+            className="MuiInputBase-input-110 MuiInput-input-95 MuiInputBase-inputMarginDense-111 MuiInput-inputMarginDense-96"
+            disabled={false}
+            id="username"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="text"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiFormControl-root-69 MuiFormControl-marginDense-71"
+        onKeyPress={[Function]}
+      >
+        <label
+          className="MuiFormLabel-root-80 MuiFormLabel-error-83 MuiInputLabel-root-73 MuiInputLabel-formControl-74 MuiInputLabel-animated-77 MuiInputLabel-marginDense-75"
+          data-shrink={false}
+          htmlFor="password"
+        >
+          Password
+        </label>
+        <div
+          className="MuiInputBase-root-100 MuiInput-root-87 MuiInput-underline-91 MuiInputBase-error-106 MuiInput-error-92 MuiInputBase-formControl-101 MuiInput-formControl-88 MuiInputBase-marginDense-107"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={true}
+            autoComplete="current-password"
+            className="MuiInputBase-input-110 MuiInput-input-95 MuiInputBase-inputType-113 MuiInput-inputType-98 MuiInputBase-inputMarginDense-111 MuiInput-inputMarginDense-96"
+            disabled={false}
+            id="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="password"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiCardActions-root-117"
+    >
+      <button
+        className="MuiButtonBase-root-145 MuiButton-root-119 MuiButton-contained-130 MuiButton-containedPrimary-131 MuiButton-raised-133 MuiButton-raisedPrimary-134 Login-button-4 MuiCardActions-action-118"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[MockFunction]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-120"
+        >
+          Login
+        </span>
+        <span
+          className="MuiTouchRipple-root-148"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Home component should match the snapshot when rendered 4`] = `
+<div
+  className="Login-cardContainer-1"
+  style={
+    Object {
+      "opacity": 0,
+    }
+  }
+>
+  <div
+    className="MuiPaper-root-6 MuiPaper-elevation1-9 MuiPaper-rounded-7 MuiCard-root-5 Login-card-2"
+  >
+    <div
+      className="MuiCardContent-root-33"
+    >
+      <p
+        className="MuiTypography-root-34 MuiTypography-body1-43 Login-title-3"
+        type="title"
+      >
+        Choose a name and enter password
+      </p>
+      <div
+        className="MuiFormControl-root-69 MuiFormControl-marginDense-71"
+        onKeyPress={[Function]}
+      >
+        <label
+          className="MuiFormLabel-root-80 MuiFormLabel-error-83 MuiInputLabel-root-73 MuiInputLabel-formControl-74 MuiInputLabel-animated-77 MuiInputLabel-marginDense-75"
+          data-shrink={false}
+          htmlFor="username"
+        >
+          Name
+        </label>
+        <div
+          className="MuiInputBase-root-100 MuiInput-root-87 MuiInput-underline-91 MuiInputBase-error-106 MuiInput-error-92 MuiInputBase-formControl-101 MuiInput-formControl-88 MuiInputBase-marginDense-107"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={true}
+            autoFocus={true}
+            className="MuiInputBase-input-110 MuiInput-input-95 MuiInputBase-inputMarginDense-111 MuiInput-inputMarginDense-96"
+            disabled={false}
+            id="username"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="text"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiFormControl-root-69 MuiFormControl-marginDense-71"
+        onKeyPress={[Function]}
+      >
+        <label
+          className="MuiFormLabel-root-80 MuiFormLabel-error-83 MuiInputLabel-root-73 MuiInputLabel-formControl-74 MuiInputLabel-animated-77 MuiInputLabel-marginDense-75"
+          data-shrink={false}
+          htmlFor="password"
+        >
+          Password
+        </label>
+        <div
+          className="MuiInputBase-root-100 MuiInput-root-87 MuiInput-underline-91 MuiInputBase-error-106 MuiInput-error-92 MuiInputBase-formControl-101 MuiInput-formControl-88 MuiInputBase-marginDense-107"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={true}
+            autoComplete="current-password"
+            className="MuiInputBase-input-110 MuiInput-input-95 MuiInputBase-inputType-113 MuiInput-inputType-98 MuiInputBase-inputMarginDense-111 MuiInput-inputMarginDense-96"
+            disabled={false}
+            id="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="password"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiCardActions-root-117"
+    >
+      <button
+        className="MuiButtonBase-root-145 MuiButton-root-119 MuiButton-contained-130 MuiButton-containedPrimary-131 MuiButton-raised-133 MuiButton-raisedPrimary-134 Login-button-4 MuiCardActions-action-118"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[MockFunction]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-120"
+        >
+          Login
+        </span>
+        <span
+          className="MuiTouchRipple-root-148"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;
