@@ -56,7 +56,7 @@ app.get('*', async (req, res) => {
   const headers = { ...req.headers, accept: 'application/json' };
   const client = createApolloClient(true, headers, new InMemoryCache());
 
-  // Set up MaterialUI theme provider
+  // Set up MaterialUI
   const sheetsRegistry = new SheetsRegistry();
   const jss = create(jssPreset());
   const generateClassName = createGenerateClassName();

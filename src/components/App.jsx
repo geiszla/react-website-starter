@@ -73,11 +73,9 @@ class App extends Component {
   }
 
   render() {
-    const { passwordError, usernameError } = this;
-    const { pathname } = this.props.location;
-
     const { data, classes } = this.props;
     const username = data.getUsername;
+    const { pathname } = this.props.location;
 
     if (!data.loading && !username && pathname !== '/login') {
       return <Redirect push to="/login" />;
@@ -87,8 +85,10 @@ class App extends Component {
       return <Redirect push to="/" />;
     }
 
+    const { passwordError, usernameError } = this;
     const backgroundImage = pathname === '/login' || this.fromLogin ? 'url(images/out.jpg)'
       : 'url(images/in.jpg)';
+
     return (
       <Fragment>
         <div className={classes.background} style={{ backgroundImage }} />

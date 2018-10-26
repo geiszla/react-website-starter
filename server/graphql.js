@@ -32,7 +32,8 @@ const mutationType = new GraphQLObjectType({
         password: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve: ({ session }, { username, password }) => new Promise((resolve) => {
-        const correctPassword = '$2a$08$7OBLs4B/PZvSxafCdjIE8.qost5k7QSyS7tUlgPi0ckDpOYYNAhC.'; // testpass
+        // Password: testpass
+        const correctPassword = '$2a$08$7OBLs4B/PZvSxafCdjIE8.qost5k7QSyS7tUlgPi0ckDpOYYNAhC.';
 
         bcrypt.compare(password, correctPassword, (err, res) => {
           if (err) {

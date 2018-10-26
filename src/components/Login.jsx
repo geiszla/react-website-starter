@@ -102,8 +102,8 @@ Login.propTypes = {
     button: PropTypes.string.isRequired
   }).isRequired,
   handleLogin: PropTypes.func.isRequired,
-  usernameError: PropTypes.bool.isRequired,
-  passwordError: PropTypes.bool.isRequired
+  passwordError: PropTypes.bool.isRequired,
+  usernameError: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(Login);

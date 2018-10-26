@@ -1,5 +1,3 @@
-/* eslint global-require: 0 */
-
 import * as Loadable from 'loadable-components';
 import ReactDOM from 'react-dom';
 

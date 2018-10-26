@@ -8,9 +8,7 @@ const serverConfig = merge(
   commonServerConfig(productionServerUrl, productionServerUrl),
   {
     mode: 'production',
-    optimization: {
-      minimize: false
-    }
+    optimization: { minimize: false }
   }
 );
 
