@@ -40,6 +40,7 @@
     "babel-loader": "^8.0.4",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.18.3",
+    "classnames": "^2.2.6",
     "clean-webpack-plugin": "^0.1.19",
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.3",

@@ -8,38 +8,38 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
-  background: {
-    width: '100%',
-    height: '100%',
+  background: `
+    position: fixed;
+    width: 100%;
+    height: 100%;
 
-    backgroundImage: 'url("images/in.jpg")',
-    backgroundPosition: '35%',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    position: 'fixed',
-    filter: 'blur(10px)',
+    background-image: url("images/in.jpg");
+    background-position: 35%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(10px);
 
     transition: 'opacity 500ms ease-in-out'
-  },
-  container: {
-    height: '100%',
-    transition: 'opacity 500ms ease-in-out'
-  },
-  content: {
-    position: 'relative',
-    top: '35%',
-    margin: '0 10%',
-    transform: 'translateY(-25%)',
-    textAlign: 'center'
-  },
-  status: {
-    fontSize: '200%',
-    color: 'white',
-    textAlign: 'center'
-  },
-  button: {
-    marginTop: '50px'
-  }
+  `,
+  container: `
+    height: 100%;
+    transition: opacity 500ms ease-in-out;
+  `,
+  content: `
+    position: relative;
+    top: 35%;
+    margin: 0 10%;
+    transform: translateY(-25%);
+    text-align: center;
+  `,
+  status: `
+    color: white;
+    font-size: 200%;
+    text-align: center;
+  `,
+  button: `
+    margin-top: 50px;
+  `
 });
 
 const transitionStyles = {
@@ -89,8 +89,8 @@ Home.propTypes = {
   fromLogin: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
   classes: PropTypes.shape({
-    container: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired,
+    container: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     button: PropTypes.string.isRequired

@@ -11,25 +11,25 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
-  cardContainer: {
-    height: '100%',
-    opacity: 0,
-    transition: 'opacity 500ms ease-in-out'
-  },
-  card: {
-    position: 'relative',
-    top: '35%',
-    margin: 'auto',
-    transform: 'translateY(-30%)',
-    maxWidth: 382
-  },
-  title: {
-    fontSize: 20,
-    margin: '7px 0 15px 0'
-  },
-  button: {
-    marginLeft: 'auto'
-  }
+  cardContainer: `
+    height: 100%;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+  `,
+  card: `
+    position: relative;
+    top: 35%;
+    max-width: 382px;
+    margin: auto;
+    transform: translateY(-30%);
+  `,
+  title: `
+    margin: 7px 0 15px 0;
+    font-size: 20px;
+  `,
+  button: `
+    margin-left: auto;
+  `
 });
 
 const transitionStyles = {
@@ -96,6 +96,7 @@ class Login extends Component {
 
 Login.propTypes = {
   classes: PropTypes.shape({
+    cardContainer: PropTypes.string.isRequired,
     card: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     button: PropTypes.string.isRequired

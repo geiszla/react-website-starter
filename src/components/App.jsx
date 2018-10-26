@@ -19,16 +19,16 @@ import { withStyles } from '@material-ui/core/styles';
 import { Home, Login } from './routes.jsx';
 
 const styles = () => ({
-  background: {
-    backgroundPosition: '35%',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    filter: 'blur(10px)',
-    height: '100%',
-    position: 'fixed',
-    transition: 'opacity 500ms ease-in-out',
-    width: '100%'
-  }
+  background: `
+    background-position: 35%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(10px);
+    height: 100%;
+    position: fixed;
+    transition: opacity 500ms ease-in-out;
+    width: 100%;
+  `
 });
 
 @observer
