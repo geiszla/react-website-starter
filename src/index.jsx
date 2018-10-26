@@ -18,7 +18,7 @@ import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/sty
 
 import createApolloClient from './apollo_client';
 import App from './components/App.jsx';
-import { theme } from './material.jsx';
+import theme from './material.jsx';
 
 // Disable Hot Module Replacement messages
 if (process.env.NODE_ENV !== 'production') {

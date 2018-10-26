@@ -1,5 +1,3 @@
-/* eslint react/no-unused-state: 0 */
-
 import gql from 'graphql-tag';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
@@ -78,7 +76,7 @@ class App extends Component {
     const { passwordError, usernameError } = this;
     const { pathname } = this.props.location;
 
-    const { data } = this.props;
+    const { data, classes } = this.props;
     const username = data.getUsername;
 
     if (!data.loading && !username && pathname !== '/login') {
@@ -89,12 +87,11 @@ class App extends Component {
       return <Redirect push to="/" />;
     }
 
+    const backgroundImage = pathname === '/login' || this.fromLogin ? 'url(images/out.jpg)'
+      : 'url(images/in.jpg)';
     return (
       <Fragment>
-        <div
-          className={this.props.classes.background}
-          style={{ backgroundImage: pathname === '/login' || this.fromLogin ? 'url(images/out.jpg)' : 'url(images/in.jpg)' }}
-        />
+        <div className={classes.background} style={{ backgroundImage }} />
         <Switch>
           <Route
             path="/login"

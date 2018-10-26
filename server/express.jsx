@@ -21,7 +21,7 @@ import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/sty
 import { InMemoryCache } from '../node_modules/apollo-cache-inmemory/lib/inMemoryCache';
 import createApolloClient from '../src/apollo_client';
 import App from '../src/components/App.jsx';
-import { theme } from '../src/material.jsx';
+import muiTheme from '../src/material.jsx';
 import graphQLSchema from './graphql';
 
 // Redirect Webserver
@@ -66,7 +66,7 @@ app.get('*', async (req, res) => {
     <ApolloProvider client={client}>
       <StaticRouter location={req.url} context={context}>
         <JssProvider registry={sheetsRegistry} jss={jss} generateClassName={generateClassName}>
-          <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
+          <MuiThemeProvider theme={muiTheme} sheetsManager={new Map()}>
             <App />
           </MuiThemeProvider>
         </JssProvider>
