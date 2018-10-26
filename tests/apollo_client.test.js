@@ -2,7 +2,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import fetch from 'node-fetch';
 
-import apolloClient from '../apollo_client';
+import apolloClient from '../src/apollo_client';
 
 global.fetch = fetch;
 global.SERVER_URL = 'test';

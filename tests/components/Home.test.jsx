@@ -3,8 +3,8 @@ import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
-import schema from '../../../server/graphql';
-import Home from '../../components/Home.jsx';
+import schema from '../../server/graphql';
+import Home from '../../src/components/Home.jsx';
 
 const executableSchema = makeExecutableSchema({
   typeDefs: printSchema(schema),

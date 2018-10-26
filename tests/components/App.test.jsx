@@ -11,9 +11,9 @@ import { MemoryRouter } from 'react-router';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import schema from '../../../server/graphql';
-import App from '../../components/App.jsx';
-import theme from '../../theme';
+import schema from '../../server/graphql';
+import App from '../../src/components/App.jsx';
+import theme from '../../src/theme';
 
 // TODO: Test Material-UI theme
 // TODO: Test react-loadable loading

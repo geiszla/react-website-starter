@@ -3,8 +3,8 @@ import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
-import schema from '../../../server/graphql';
-import Login from '../../components/Login.jsx';
+import schema from '../../server/graphql';
+import Login from '../../src/components/Login.jsx';
 
 const executableSchema = makeExecutableSchema({
   typeDefs: printSchema(schema),
@@ -38,16 +38,14 @@ describe('Home component', () => {
     expect(bothErrorRenderer.toJSON()).toMatchSnapshot();
   });
 
-  it('should handle key presses in username and password fields', () => {
+  it('should handle key presees in username and password fields', () => {
     const loginCore = loginRenderer.root.find(element => element.type.name === 'Login');
-
-    loginCore.instance.handleKeyPress({ key: 'Enter' });
-    expect(handleLogin).toHaveBeenCalled();
-
-    handleLogin.mockClear();
 
     loginCore.instance.handleKeyPress({});
     expect(handleLogin).not.toHaveBeenCalled();
+
+    loginCore.instance.handleKeyPress({ key: 'Enter' });
+    expect(handleLogin).toHaveBeenCalled();
   });
 
   it('should call handleLogin when login button is pressed', () => {

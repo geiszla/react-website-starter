@@ -3,7 +3,7 @@
 import * as Loadable from 'loadable-components';
 import ReactDOM from 'react-dom';
 
-const indexPath = '../index.jsx';
+const indexPath = '../src/index.jsx';
 
 // Test setup
 global.SERVER_URL = 'test';
