@@ -13,6 +13,8 @@ import {
 } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
+// import Login from './Login.jsx';
+// import Home from './Home.jsx';
 
 import { Home, Login } from './routes.jsx';
 
@@ -77,11 +79,15 @@ class App extends Component {
     const username = data.getUsername;
     const { pathname } = this.props.location;
 
-    if (!data.loading && !username && pathname !== '/login') {
+    if (data.loading) {
+      return <div>Loading...</div>;
+    }
+
+    if (!username && pathname !== '/login') {
       return <Redirect push to="/login" />;
     }
 
-    if (!data.loading && username && pathname === '/login') {
+    if (username && pathname === '/login') {
       return <Redirect push to="/" />;
     }
 

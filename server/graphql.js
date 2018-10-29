@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt-nodejs';
+import { compare } from 'bcrypt-nodejs';
 import {
   GraphQLBoolean,
   GraphQLNonNull,
@@ -8,7 +8,7 @@ import {
 } from 'graphql';
 
 // Queries
-const queryType = new GraphQLObjectType({
+export const queryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
     getUsername: {
@@ -22,7 +22,7 @@ const queryType = new GraphQLObjectType({
 });
 
 // Mutations
-const mutationType = new GraphQLObjectType({
+export const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     loginUser: {
@@ -35,7 +35,7 @@ const mutationType = new GraphQLObjectType({
         // Password: testpass
         const correctPassword = '$2a$08$7OBLs4B/PZvSxafCdjIE8.qost5k7QSyS7tUlgPi0ckDpOYYNAhC.';
 
-        bcrypt.compare(password, correctPassword, (err, res) => {
+        compare(password, correctPassword, (err, res) => {
           if (err) {
             console.error('Couldn\'t compare password hashes.');
             resolve(false);

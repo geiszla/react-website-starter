@@ -21,7 +21,7 @@ import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/sty
 import { InMemoryCache } from '../node_modules/apollo-cache-inmemory/lib/inMemoryCache';
 import createApolloClient from '../src/apollo_client';
 import App from '../src/components/App.jsx';
-import muiTheme from '../src/material.jsx';
+import muiTheme from '../src/material';
 import graphQLSchema from './graphql';
 
 // Redirect Webserver
