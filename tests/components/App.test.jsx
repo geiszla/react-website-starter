@@ -1,58 +1,40 @@
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { SchemaLink } from 'apollo-link-schema';
-import { GraphQLObjectType, printSchema } from 'graphql';
-import gql from 'graphql-tag';
-import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
-import { print } from 'graphql/language/printer';
+import { printSchema } from 'graphql';
+import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { MockedProvider } from 'react-apollo/test-utils';
 import { MemoryRouter } from 'react-router';
 import { create } from 'react-test-renderer';
+import wait from 'waait';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import schema, { queryType } from '../../server/graphql';
+import schema from '../../server/graphql';
 import App from '../../src/components/App.jsx';
 import theme from '../../src/material';
-import wait from 'waait';
 
 // TODO: Test Material-UI theme
 // TODO: Test react-loadable loading
 
 // Setup
-function createMockClient(mocks) {
+function getAppWithMocks(path, apolloMocks) {
   const executableSchema = makeExecutableSchema({
     typeDefs: printSchema(schema),
     resolverValidationOptions: { requireResolversForResolveType: false }
   });
 
-  // console.log(mocks);
-  if (mocks) {
-    addMockFunctionsToSchema({ schema: executableSchema, mocks });
+  if (apolloMocks) {
+    addMockFunctionsToSchema({ schema: executableSchema, mocks: apolloMocks });
   }
 
-  return new ApolloClient({
+  const mockClient = new ApolloClient({
     link: new SchemaLink({ schema: executableSchema }),
     cache: new InMemoryCache()
   });
-}
 
-// Helper functions
-async function mountAppAsync(path, apolloMocks) {
-  // const { getUsername } = queryType.getFields();
-  // console.log(printSchema(schema));
-  // const mocks = [
-  //   {
-  //     request: { query: gql`${printSchema(schema)}` },
-  //     result: { data: { getUsername: 'username' } }
-  //   }
-  // ];
-
-  const mockClient = createMockClient(apolloMocks);
-
-  const renderer = create(
+  return (
     <ApolloProvider client={mockClient}>
       <MemoryRouter initialEntries={[path]}>
         <MuiThemeProvider theme={theme}>
@@ -61,38 +43,137 @@ async function mountAppAsync(path, apolloMocks) {
       </MemoryRouter>
     </ApolloProvider>
   );
+}
 
-  // Wait for Apollo data to load
+// Helper functions
+async function waitToLoad(renderer) {
   await wait(0);
 
   const loadableComponent = renderer.root.find(element => element.type.name
     === 'LoadableComponent');
   await loadableComponent.instance.loadingPromise;
-
-  return renderer.root.find(element => element.type.name === 'App');
 }
 
+async function renderAndLoad(path, apolloMocks) {
+  const renderer = create(getAppWithMocks(path, apolloMocks));
+
+  // Wait for Apollo data to load
+  await waitToLoad(renderer);
+  return renderer;
+}
+
+function mockDOMElementValues(elementValues) {
+  document.getElementById = (id) => {
+    if (elementValues && Object.keys(elementValues).includes(id)) {
+      if (elementValues[id] !== Object(elementValues[id])) {
+        return { value: elementValues[id] };
+      }
+
+      return elementValues[id];
+    }
+
+    return { value: null };
+  };
+}
+
+function getButtonFromTree(tree, label) {
+  return tree.find(element => element.type === 'button'
+    && element.children
+    && element.children.some(child => child.children && child.children[0] === label));
+}
+
+// Tests
 describe('App component', () => {
-  it('should render the Login component when not logged in', async () => {
-    const appRootLogin = await mountAppAsync('/login');
-    const loginInstance = appRootLogin.find(element => element.type.name === 'Login');
+  it('should redirect to Login when not logged in', async () => {
+    const appLogin = await renderAndLoad('/login');
+    const loginInstance = appLogin.root.find(element => element.type.name === 'Login');
     expect(loginInstance).toBeTruthy();
 
-    const appRootHome = await mountAppAsync('/');
-    const homeInstance = appRootHome.findAll(element => element.type.name === 'Home');
+    const appHome = await renderAndLoad('/');
+    const homeInstance = appHome.root.findAll(element => element.type.name === 'Home');
     expect(homeInstance).toHaveLength(0);
   });
 
-  it('should call handleLogout when logout button is pressed', async () => {
-    const appRootHome = await mountAppAsync('/', { String: () => 'username' });
+  it('should redirect to Home when logged in', async () => {
+    const appLogin = await renderAndLoad('/login', {
+      Query: () => ({ getUsername: () => 'username' })
+    });
 
-    appRootHome.instance.handleLogout = jest.fn();
-    const logoutButton = appRootHome.find(element => element.type === 'button'
-      && element.children
-      && element.children.some(child => child.children && child.children[0] === 'Logout'));
+    const homeInstance = appLogin.root.find(element => element.type.name === 'Home');
+    expect(homeInstance).toBeTruthy();
+  });
 
+  it('should remove appended JSS styles from the DOM when mounted', async () => {
+    const removeChild = jest.fn();
+    mockDOMElementValues({ 'jss-server-side': { parentNode: { removeChild } } });
+    await renderAndLoad('/');
+    expect(removeChild).toHaveBeenCalledTimes(1);
+  });
+
+  it('should handle user login request', async (done) => {
+    debugger;
+    // Reset username and password values
+    mockDOMElementValues();
+
+    // Render login page with login mutation
+    const loginMutateMock = jest.fn();
+    let appRenderer = await renderAndLoad('/login', {
+      Query: () => ({ getUsername: () => undefined }),
+      Mutation: () => ({
+        loginUser: (username, password) => {
+          expect(username).toBeTruthy();
+          expect(password).toBeTruthy();
+          loginMutateMock();
+
+          done();
+          return true;
+        }
+      })
+    });
+
+    const appNode = appRenderer.root.find(element => element.type.name === 'App');
+    let loginButton = getButtonFromTree(appNode, 'Login');
+
+    // Test username error
+    loginButton.props.onClick();
+    expect(appNode.instance.usernameError).toBe(true);
+    expect(appNode.instance.passwordError).toBe(false);
+
+    // Test username error reset
+    mockDOMElementValues({ username: 'test', password: '' });
+    loginButton.props.onClick();
+    expect(appNode.instance.usernameError).toBe(false);
+    expect(loginMutateMock).toHaveBeenCalledTimes(1);
+
+    // Update app with login mutation that returns false
+    appRenderer.update(getAppWithMocks('/login', {
+      Query: () => ({ getUsername: () => undefined }),
+      Mutation: () => ({ loginUser: () => false })
+    }));
+    await waitToLoad(appRenderer);
+
+    // Simulate button press and wait for tree to update
+    loginButton = getButtonFromTree(appRenderer.root, 'Login');
+    loginButton.props.onClick();
+    await wait(0);
+    expect(appNode.instance.usernameError).toBe(false);
+    expect(appNode.instance.passwordError).toBe(true);
+  });
+
+  it('should send logout request when logout button is pressed', async () => {
+    const logoutMutateMock = jest.fn();
+    const appRenderer = await renderAndLoad('/', {
+      Query: () => ({ getUsername: () => 'username' }),
+      Mutation: () => ({
+        logoutUser: () => {
+          logoutMutateMock();
+          return true;
+        }
+      })
+    });
+
+    const logoutButton = getButtonFromTree(appRenderer.root, 'Logout');
     logoutButton.props.onClick();
-    console.log(logoutButton.props.onClick.toString());
-    expect(appRootHome.instance.handleLogout).toHaveBeenCalledTimes(1);
+    expect(logoutMutateMock).toHaveBeenCalledTimes(1);
   });
 });

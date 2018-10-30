@@ -8,7 +8,7 @@ import {
 } from 'graphql';
 
 // Queries
-export const queryType = new GraphQLObjectType({
+const queryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
     getUsername: {
@@ -22,7 +22,7 @@ export const queryType = new GraphQLObjectType({
 });
 
 // Mutations
-export const mutationType = new GraphQLObjectType({
+const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     loginUser: {

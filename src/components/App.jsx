@@ -76,12 +76,13 @@ class App extends Component {
 
   render() {
     const { data, classes } = this.props;
-    const username = data.getUsername;
-    const { pathname } = this.props.location;
 
     if (data.loading) {
       return <div>Loading...</div>;
     }
+
+    const username = data.getUsername;
+    const { pathname } = this.props.location;
 
     if (!username && pathname !== '/login') {
       return <Redirect push to="/login" />;
