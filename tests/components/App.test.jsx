@@ -111,13 +111,12 @@ describe('App component', () => {
   });
 
   it('should handle user login request', async (done) => {
-    debugger;
     // Reset username and password values
     mockDOMElementValues();
 
     // Render login page with login mutation
     const loginMutateMock = jest.fn();
-    let appRenderer = await renderAndLoad('/login', {
+    const appRenderer = await renderAndLoad('/login', {
       Query: () => ({ getUsername: () => undefined }),
       Mutation: () => ({
         loginUser: (username, password) => {

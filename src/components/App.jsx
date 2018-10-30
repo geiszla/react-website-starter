@@ -13,8 +13,6 @@ import {
 } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
-// import Login from './Login.jsx';
-// import Home from './Home.jsx';
 
 import { Home, Login } from './routes.jsx';
 
