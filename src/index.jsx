@@ -6,7 +6,6 @@ import 'whatwg-fetch';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { create } from 'jss';
 import jssPreset from 'jss-preset-default';
-import * as Loadable from 'loadable-components';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import ReactDOM from 'react-dom';
@@ -31,8 +30,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default async function hydrateApp(_, hotModuleReplacement = module.hot) {
-  await Loadable.loadComponents();
-
   const inMemoryCache = new InMemoryCache().restore(window.__APOLLO_STATE__ || {});
   const client = createApolloClient(false, undefined, inMemoryCache);
   const jss = create(jssPreset());

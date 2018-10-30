@@ -1,4 +1,3 @@
-import * as Loadable from 'loadable-components';
 import ReactDOM from 'react-dom';
 
 const indexPath = '../src/index.jsx';

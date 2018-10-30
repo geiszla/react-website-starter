@@ -8,7 +8,6 @@ import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import { create } from 'jss';
 import jssPreset from 'jss-preset-default';
-import { getLoadableState } from 'loadable-components/server';
 import morgan from 'morgan';
 import React from 'react';
 import { ApolloProvider, renderToStringWithData } from 'react-apollo';
@@ -16,8 +15,10 @@ import { JssProvider, SheetsRegistry } from 'react-jss';
 import { StaticRouter } from 'react-router-dom';
 import favicon from 'serve-favicon';
 
+import { LoadableState, LoadableStateManager } from '@loadable/server';
 import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/styles';
 
+import manifest from '../dist/loadable-manifest.json';
 import { InMemoryCache } from '../node_modules/apollo-cache-inmemory/lib/inMemoryCache';
 import createApolloClient from '../src/apollo_client';
 import App from '../src/components/App.jsx';
@@ -52,6 +53,9 @@ app.use(cookieSession({
 app.get('*', async (req, res) => {
   console.log(`\n----------------[ PAGE LOAD: ${req.url} ]`.padEnd(55, '-'));
 
+  // Set up dynamic module loading
+  const loadableState = new LoadableState(manifest);
+
   // Set up Apollo client
   const headers = { ...req.headers, accept: 'application/json' };
   const client = createApolloClient(true, headers, new InMemoryCache());
@@ -63,19 +67,21 @@ app.get('*', async (req, res) => {
 
   const context = {};
   const reactApp = (
-    <ApolloProvider client={client}>
-      <StaticRouter location={req.url} context={context}>
-        <JssProvider registry={sheetsRegistry} jss={jss} generateClassName={generateClassName}>
-          <MuiThemeProvider theme={muiTheme} sheetsManager={new Map()}>
-            <App />
-          </MuiThemeProvider>
-        </JssProvider>
-      </StaticRouter>
-    </ApolloProvider>
+    <LoadableStateManager state={loadableState}>
+      <ApolloProvider client={client}>
+        <StaticRouter location={req.url} context={context}>
+          <JssProvider registry={sheetsRegistry} jss={jss} generateClassName={generateClassName}>
+            <MuiThemeProvider theme={muiTheme} sheetsManager={new Map()}>
+              <App />
+            </MuiThemeProvider>
+          </JssProvider>
+        </StaticRouter>
+      </ApolloProvider>
+    </LoadableStateManager>
   );
 
   // Render current page of React app to static HTML
-  const staticHtml = await renderPage(reactApp, client, sheetsRegistry);
+  const staticHtml = await renderPage(reactApp, client, sheetsRegistry, loadableState);
 
   if (context.url) {
     // Handle React Router redirect
@@ -87,10 +93,8 @@ app.get('*', async (req, res) => {
   }
 });
 
-async function renderPage(reactApp, client, sheetsRegistry) {
-  const loadableState = await getLoadableState(reactApp);
+async function renderPage(reactApp, client, sheetsRegistry, loadableState) {
   const content = await renderToStringWithData(reactApp);
-
   const css = sheetsRegistry.toString();
 
   // Insert app content and stying into HTML

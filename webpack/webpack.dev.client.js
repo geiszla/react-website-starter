@@ -1,3 +1,4 @@
+const LoadablePlugin = require('@loadable/webpack-plugin');
 const merge = require('webpack-merge');
 const RemoveSourceMapUrlWebpackPlugin = require('@rbarilani/remove-source-map-url-webpack-plugin');
 const webpack = require('webpack');
@@ -31,7 +32,8 @@ module.exports = merge(
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new RemoveSourceMapUrlWebpackPlugin()
+      new RemoveSourceMapUrlWebpackPlugin(),
+      new LoadablePlugin({ filename: './dist/loadable-manifest.json' })
     ]
   }
 );
